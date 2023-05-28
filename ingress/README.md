@@ -269,7 +269,7 @@ kubectl get pod -o wide | grep myingress
 
 ##
 
-curl (404error) with the ip of the pod you checked on 9.8
+curl to the ip of the pod you checked in 9.8
 
 ```
 curl <pod ip>
@@ -285,7 +285,7 @@ kubectl get svc | grep ingress
 
 ##
 
-curl (404error) with the ip of the svc I checked on 11.10
+curl with the ip of the svc I checked on 11.10
 
 ```
 curl <svc ip>
@@ -293,7 +293,7 @@ curl <svc ip>
 
 ##
 
-12. Curl to the ingress url (503 error)
+12. curl to the url of the ingress
 
 ```
 curl -H "Host: www.external.com" svc ip from http://<10>
@@ -301,7 +301,21 @@ curl -H "Host: www.external.com" svc ip from http://<10>
 
 ##
 
-13. Deploy the demo application
+13. Add annotation to Linkerd's ingress pod
+
+```
+kubectl get ds myingress-ingress-nginx-controller -o yaml  | linkerd inject --ingress - | kubectl apply -f -
+```
+
+##
+
+14.In the linkerd dashboard, select Top - Default namespace - select daemonset/myingress-ingress-nginx-controller - click the start button
+
+![](../img/linkerd.png)
+
+##
+
+15. Deploy the demo application
 
 ```
 cat <<EOF | kubectl create -f -
@@ -342,14 +356,7 @@ EOF
 
 ##
 
-14. Curl back to the ingress url
-
-```
-curl -H "Host: www.external.com" svc ip from http://<10>
-```
-
-
-15. Connect to the created web-one pod
+16. Connect to the created web-one pod
 
 ```
 kubectl exec -it <the Pod name created above> -- /bin/bash
@@ -357,10 +364,22 @@ kubectl exec -it <the Pod name created above> -- /bin/bash
 
 ##
 
-16. Web server simple configuration
+17. Web server simple configuration
 
 ```
-echo Internal Welcome Page > /usr/share/nginx/html/index.html
+apt-get update
+apt-get install vim -y
+vi /usr/share/nginx/html/index.html
+```
+
+Create index.html contents
+
+```
+<!DOCTYPE html> <html>
+<head>
+<title>Internal Welcome Page</title> #<-- edit this line   
+<style>
+<output_omitted>
 ```
 
 disconnect pod
@@ -371,7 +390,7 @@ exit
 
 ##
 
-Edit 17.ingress
+Edit 18.ingress
 
 ```
 kubectl edit ingress ingress-test
@@ -386,7 +405,7 @@ spec:
 
 ##
 
-18.curl test
+19.curl test
 
 ```
 curl -H "Host: internal.org" http://<ingress controller svc ip>/
@@ -397,4 +416,11 @@ or
 ```
 curl -H "Host: internal.org" \
 $(kubectl get svc myingress-ingress-nginx-controller -o=jsonpath='{.spec.clusterIP}')
+```
+
+
+
+> delete linkerd
+```
+linkerd uninstall | kubectl delete -f -
 ```
