@@ -97,3 +97,81 @@ https://k8scp:6443/api/v1/namespaces/default/pods\
 ```
 kubectl get pods
 ```
+
+
+#Exercise 5.2
+
+
+1. Strace installation (debugging tool used to trace system calls and signals to check if there are any parts that cause performance degradation or errors)
+```
+sudo apt-get install -y strace
+```
+
+##
+
+2.ep check command
+```
+kubectl get endpoints
+strace kubectl get endpoints
+```
+
+##
+
+3. Move directory
+```
+cd /home/ubuntu/.kube/cache/discovery/k8scp_6443
+ls
+```
+
+##
+
+4. Confirm with the find command
+```
+find.
+```
+
+##
+
+5. Check the resources available in API version 1
+```
+python3 -m json.tool v1/serverresources.json
+```
+
+##
+
+6. endpoints abbreviation search
+```
+python3 -m json.tool v1/serverresources.json | less
+```
+```
+/endpoints
+```
+When the search is complete, press <q> to quit less
+
+##
+
+7. Endpoint lookup using abbreviations
+```
+kubectl get ep
+```
+
+##
+
+8.kind count check
+```
+python3 -m json.tool v1/serverresources.json | grep kind
+```
+
+##
+
+9. Check other apiversions
+```
+python3 -m json.tool apps/v1/serverresources.json | grep kind
+```
+
+##
+
+10. Delete the pod
+```
+kubectl delete po curlpod
+```

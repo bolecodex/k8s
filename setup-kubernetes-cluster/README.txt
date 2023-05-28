@@ -1,6 +1,6 @@
 # Execute the following in all nodes
-git clone https://github.com/bolecodex/100-Awesome-Kubernetes-Introduction-Experiments.git
-cd 100-Awesome-Kubernetes-Introduction-Experiments/setup-kubernetes-cluster
+git clone https://github.com/bolecodex/k8s.git
+cd k8s/setup-kubernetes-cluster
 chmod +x setup-container.sh
 chmod +x setup-kubetools-ubuntu.sh
 ./setup-container.sh
