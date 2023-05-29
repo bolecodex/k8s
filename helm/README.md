@@ -64,14 +64,14 @@ kubectl get svc
 
 ##
 
-10.Curl communication with the above service
+10. Curl communication with the above service
 ```
 curl <above svc ip>
 ```
 
 ##
 
-11.Check the helm chart record
+11. Check the helm chart record
 ```
 helm list
 ```
