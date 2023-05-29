@@ -2,7 +2,7 @@
 
 > etcd database backup
 
-1.etcd daemon search data directory
+1. etcd daemon search data directory
 
 ```
 sudo grep data-dir /etc/kubernetes/manifests/etcd.yaml
@@ -12,7 +12,7 @@ sudo grep data-dir /etc/kubernetes/manifests/etcd.yaml
 
 ##
 
-2.etcd pod name check
+2. etcd pod name check
 
 ```
 kubectl -n kube-system get pod
@@ -20,7 +20,7 @@ kubectl -n kube-system get pod
 
 ##
 
-3.etcd pod connection
+3. etcd pod connection
 
 ```
 kubectl -n kube-system exec -it <etcd pod name> -- sh
@@ -28,7 +28,7 @@ kubectl -n kube-system exec -it <etcd pod name> -- sh
 
 ##
 
-Retrieve certificate and key files for 4.tls use
+4. Retrieve certificate and key files for tls use
 
 ```
 cd /etc/kubernetes/pki/etcd
@@ -45,7 +45,7 @@ exit
 
 ##
 
-6.Check DB status using Loopback IP, port 2379
+6. Check DB status using Loopback IP, port 2379
 
 ```
 kubectl -n kube-system exec -it etcd-cp -- sh \
@@ -58,7 +58,7 @@ etcdctl endpoint health"
 
 ##
 
-7. Check the number of DBs in the cluster
+7.Check the number of DBs in the cluster
 
 ```
 kubectl -n kube-system exec -it etcd-cp -- sh \
@@ -110,7 +110,6 @@ sudo ls -l /var/lib/etcd/
 ```
 mkdir $HOME/backup
 sudo cp /var/lib/etcd/snapshot.db $HOME/backup/snapshot.db-$(date +%m-%d-%y)
-sudo cp /root/kubeadm-config.yaml $HOME/backup/
 sudo cp -r /etc/kubernetes/pki/etcd $HOME/backup/
 ```
 
