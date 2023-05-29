@@ -1,6 +1,4 @@
-# Exercise 4.1 - Basic Node Maintenance
-
-> etcd database backup
+# Exercise 4.1 - etcd database backup
 
 1. etcd daemon search data directory
 
@@ -58,7 +56,7 @@ etcdctl endpoint health"
 
 ##
 
-7.Check the number of DBs in the cluster
+7. Check the number of DBs in the cluster
 
 ```
 kubectl -n kube-system exec -it etcd-cp -- sh \
