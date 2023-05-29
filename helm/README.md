@@ -143,28 +143,28 @@ helm install anotherweb .
 
 ##
 
-20.Check the created resource
+20. Check the created resource
 ```
 kubectl get all
 ```
 
 ##
 
-21.Curl to the generated SVC IP
+21. Curl to the generated SVC IP
 ```
 curl $(kubectl get svc anotherweb-apache -o=jsonpath='{.spec.clusterIP}')
 ```
 
 ##
 
-Deploy by specifying the type of 22.svc as clusterIP
+22. Deploy by specifying the type of svc as clusterIP
 ```
 helm upgrade anotherweb . --set service.type=ClusterIP
 ```
 
 ##
 
-Check if 23.svc type has changed
+23. Check if svc type has changed
 ```
 kubectl get svc anotherweb-apache
 ```
