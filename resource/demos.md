@@ -1,6 +1,9 @@
-Understanding Quota and Resources
+# Understanding Quota and Resources
+
 • Quota are set on namespaces to limit the availability of resources
+
 • Resource requests and limits are set on applications to specify required resources and resource limits
+
 • If an application is started in a namespace that has quota, the application must have resource requests specified
 
 # Demo: Managing Quota
