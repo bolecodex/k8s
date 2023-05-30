@@ -1,4 +1,4 @@
-# Exploring NetworkPolicy
+# Demo1: Exploring NetworkPolicy
 ```
 kubectl apply -f nwpolicy-complete-example.yaml
 kubectl expose pod nginx --port=80
@@ -6,7 +6,7 @@ kubectl exec -it busybox -- wget --spider --timeout=1 nginx will fail
 kubectl label pod busybox access=true
 kubectl exec -it busybox -- wget --spider --timeout=1 nginx will work
 ```
-# Using NetworkPolicy between Namespaces
+# Demo2: Using NetworkPolicy between Namespaces
 ```
 kubectl create ns nwp-namespace
 kubectl create -f nwp-lab9-1.yaml
