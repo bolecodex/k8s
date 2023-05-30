@@ -25,4 +25,5 @@ kubectl get nodes
 source <(kubectl completion bash)
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 echo alias k=kubectl >> ~/.bashrc
+echo export do="--dry-run=client -o yaml"
 source ~/.bashrc
