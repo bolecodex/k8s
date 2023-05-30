@@ -27,8 +27,4 @@ kubectl exec -it busybox[Tab] -- wget --spider --timeout=1 nwp-nginx
 ```
 
 # Task 1
-Create a NetworkPolicy that applies to the namespace resticted and
-provides access only to pods that are running nginx and which are
-running in that namespace. Only pods coming from the default
-namespace provided with the label access=yes should be allowed
-access
+Create a NetworkPolicy that applies to the namespace resticted and provides access only to pods that are running nginx and which are running in that namespace. Only pods coming from the default namespace provided with the label access=allowed should be allowed access
