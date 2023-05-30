@@ -25,3 +25,10 @@ kubectl exec -it nwp-busybox -n nwp-namespace -- wget --spider --timeout=1 nwp-n
 kubectl create deployment busybox --image=busybox -- sleep 3600
 kubectl exec -it busybox[Tab] -- wget --spider --timeout=1 nwp-nginx
 ```
+
+# Task 1
+Create a NetworkPolicy that applies to the namespace resticted and
+provides access only to pods that are running nginx and which are
+running in that namespace. Only pods coming from the default
+namespace provided with the label access=yes should be allowed
+access
