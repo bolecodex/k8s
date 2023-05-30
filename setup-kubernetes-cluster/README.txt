@@ -21,3 +21,5 @@ kubectl get pods --all-namespaces
 
 kubectl cluster-info
 kubectl get nodes
+
+source <(kubectl completion bash)
