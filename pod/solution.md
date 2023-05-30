@@ -3,7 +3,7 @@
 Create a Pod with the name task2pod that runs the latest version of the alpine image. 
 This pod should be configured to run the sleep 3600 command repeatedly and it should be created in the mynamespace namespace
 ```
-# Solution 1
+## Solution 1
 ```
 kubectl create ns mynamespace
 kubectl run -n mynamespace task2pod --image=alpine -- sleep 3600
@@ -18,7 +18,7 @@ on the 3 following images
   • nginx
   • busybox
 ```
-# Solution 2
+## Solution 2
 ```
 kubectl apply -f - <<EOF
 apiVersion: v1
