@@ -1,4 +1,7 @@
-# Exercise 8.2
+Create a Persistent Volume with the name mypv, that uses local host storage and provides 1 GiB of storage. This PV should be accessible from all name spaces.
+Create a Persistent Volume claim that requests 100 MiB. Run a Pod with the name pv-pod that uses this persistent volume from the "myvol" namespaceUse kubectl edit or kubectl patch with recording to change the size of the claim from 100MiB to 200MiB
+
+# Exercise 8.2. 
 
 >Proceed with the root administrator account
 ```
