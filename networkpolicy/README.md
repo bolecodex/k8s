@@ -14,5 +14,7 @@ kubectl expose pod nwp-nginx --port=80
 kubectl exec -it nwp-busybox -n nwp-namespace -- wget --spider --timeout=1 nwp-nginx # gives a bad address error
 kubectl exec -it nwp-busybox -n nwp-namespace -- nslookup nwp-nginx
 # explains that it's looking in the wrong ns
-kubectl exec -it nwp-busybox -n nwp-namespace -- wget --spider --timeout=1 nwp-nginx.default.svc.cluster.local is allowed
+kubectl exec -it nwp-busybox -n nwp-namespace -- nslookup nwp-nginx.default.svc.cluster.local
+kubectl exec -it nwp-busybox -n nwp-namespace -- wget --spider --timeout=1 nwp-nginx.default.svc.cluster.local
+# now it is allowed
 ```
