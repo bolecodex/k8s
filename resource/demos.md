@@ -3,13 +3,9 @@
 kubectl create quota -h | less
 kubectl create quota qtest --hard pods=3,cpu=100m,memory=500Mi -n limited
 kubectl describe quota -n limited
-kubectl create deploy nginx --image=nginx:latest --replicas=3 -n
-limited
+kubectl create deploy nginx --image=nginx:latest --replicas=3 -n limited
 kubectl get all -n limited # no pods
-kubectl describe rs/nginx-xxx -n limited # it fails because no quota
-have been set on the deployment
-kubectl set resources deploy nginx --requests
-cpu=100m,memory=5Mi --limits cpu=200m,memory=20Mi -n
-limited
+kubectl describe rs/nginx-xxx -n limited # it fails because no quota have been set on the deployment
+kubectl set resources deploy nginx --requests cpu=100m,memory=5Mi --limits cpu=200m,memory=20Mi -n limited
 kubectl get pods -n limited
 ```
