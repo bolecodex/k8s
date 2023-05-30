@@ -18,3 +18,10 @@ kubectl exec -it nwp-busybox -n nwp-namespace -- nslookup nwp-nginx.default.svc.
 kubectl exec -it nwp-busybox -n nwp-namespace -- wget --spider --timeout=1 nwp-nginx.default.svc.cluster.local
 # now it is allowed
 ```
+# Demo3: Using NetworkPolicy between Namespaces
+```
+kubectl create -f nwp-lab9-2.yaml
+kubectl exec -it nwp-busybox -n nwp-namespace -- wget --spider --timeout=1 nwp-nginx.default.svc.cluster.local # it is not allowed
+kubectl create deployment busybox --image=busybox -- sleep 3600
+kubectl exec -it busybox[Tab] -- wget --spider --timeout=1 nwp-nginx
+```
