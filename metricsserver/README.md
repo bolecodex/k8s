@@ -3,7 +3,7 @@
 
 >Metric-Server
 
-1.Metric-Server Installation
+1. Metric-Server Installation
 ```
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
@@ -14,11 +14,16 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 ```
 kubectl -n kube-system edit deploy metrics-server
 ```
-Add below values ​​to spec.template.spec.containers.args
+Add below values to spec.template.spec.containers.args
 
 ```
 - --kubelet-insecure-tls
+- --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
 ```
+```
+kubectl –n kube-system logs metrics-server<TAB> 
+```
+should show "Generating self-signed cert" and "Serving securely on [::]443
 
 ##
 
