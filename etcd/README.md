@@ -1,4 +1,4 @@
-# Demo: Backing up the Etcd
+# Demo 1: Backing up the Etcd
 ```
 sudo apt install etcd-client
 sudo etcdctl --help; sudo ETCDCTL_API=3 etcdctl --help
@@ -17,7 +17,8 @@ sudo ETCDCTL_API=3 etcdctl --endpoints=localhost:2379 \
 sudo ETCDCTL_API=3 etcdctl --write-out=table snapshot status /tmp/etcdbackup.db
 cp /tmp/etcdbackup.db /tmp/etcdbackup.db.2
 ```
-# Task
+# Demo 2: Restoring the Etcd
+```
 kubectl delete --all deploy
 cd /etc/kubernetes/manifests/
 sudo mv * .. # this will stop all running pods
@@ -28,6 +29,7 @@ sudo vi /etc/kubernetes/etcd.yaml # change etcd-data HostPath volume to /var/lib
 sudo mv ../*.yaml .
 sudo crictl ps # should show all resources
 kubectl get deploy -A
+```
 
 # Exercise 4.1 - etcd database backup
 
