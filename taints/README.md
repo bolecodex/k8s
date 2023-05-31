@@ -1,3 +1,12 @@
+# Demo: Allow user Pods to also run on the control node
+```
+kubectl taint node control node-role.kubernetes.io/control-plane:NoSchedule-
+# Another option:
+kubectl edit node control
+# delete three lines of taint
+kubectl deploy taintdeploy --image=nginx replicas=3
+k get pod -o wide | grep taintdeploy 
+```
 # Exercise 12.2
 
 
