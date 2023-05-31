@@ -1,3 +1,36 @@
+# Demo 1: Bearer Token
+```
+1. Create a Pod, using the standard ServiceAccount: kubectl apply -f
+mypod.yaml
+2. Use kubectl get pods mypod -o yaml to check current SA configuration
+3. Access the Pod using kubectl exec -it mypod -- sh, try to list Pods using curl on the API:
+  1. apk add --update curl
+  2. curl https://kubernetes/api/v1 --insecure will be forbidden
+4. Use the Default ServiceAccount token and try again:
+  1. TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
+  2. curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/ --insecure
+5. Try the same, but this time to list Pods - it will fail:
+  curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/default/pods/ --insecure
+```
+
+# Demo 2: RBAC API 
+```
+1. Create a ServiceAccount: 
+kubectl apply -f mysa.yaml
+2. Define a role that allows to list all Pods in the default NameSpace: 
+kubectl apply -f list-pods.yaml
+3. Define a RoleBinding that binds the mysa to the Role just created: 
+kubectl apply -f list-pods-mysa-binding.yaml
+4. Create a Pod that uses the mysa SA to access this Role: 
+kubectl apply -f mysapod.yaml
+5. Access the Pod, use the mysa ServiceAccount token and try again:
+  1. apk add --update curl
+  2. TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
+  3. curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/ --insecure
+6. Try the same, but this time to list Pods:
+curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/default/pods/ --insecure
+```
+
 # Exercise 6.1
 
 
