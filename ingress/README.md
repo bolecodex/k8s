@@ -18,7 +18,7 @@ sudo -i
 echo "127.0.0.1 nginxsvc.info" >> /etc/hosts
 exit
 curl nginxsvc.info:8080
-# If you want to later kill the process currently on port 8080: netstat -tulpen | grep 8080 shoud show which process that is, kill -9 <PID> allows you to kill it.
+# If you later want to kill the process currently on port 8080: netstat -tulpen | grep 8080 shoud show which process that is, kill -9 <PID> allows you to kill it.
 ```
 
 # Exercise 11.1
