@@ -18,9 +18,16 @@ sudo ETCDCTL_API=3 etcdctl --write-out=table snapshot status /tmp/etcdbackup.db
 cp /tmp/etcdbackup.db /tmp/etcdbackup.db.2
 ```
 # Task
-Create a backup of the etcd database. API version 3 is used for the current database. Write the backup to /var/exam/etcd-backup
-
-Delete some deployments
+kubectl delete --all deploy
+cd /etc/kubernetes/manifests/
+sudo mv * .. # this will stop all running pods
+sudo crictl ps
+sudo ETCDCTL_API=3 etcdctl snapshot restore /tmp/etcdbackup.db --data-dir /var/lib/etcd-backup
+sudo ls -l /var/lib/etcd-backup/
+sudo vi /etc/kubernetes/etcd.yaml # change etcd-data HostPath volume to /var/lib/etcd-backup
+sudo mv ../*.yaml .
+sudo crictl ps # should show all resources
+kubectl get deploy -A
 
 # Exercise 4.1 - etcd database backup
 
