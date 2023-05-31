@@ -1,5 +1,13 @@
-# Exercise 13.3
+# Task
+Find the Pod with the highest CPU load and write its name to the file /var/exam/cpu-pods.txt
+# Solution
+```
+kubectl top pod --all-namespaces --sort-by='cpu' | awk 'NR==2{print $2}' >> /var/exam/cpu-pods.txt
+# or
+kubectl top pod -A --sort-by cpu --no-headers | head -1 | awk '{print $2}' >> /var/exam/cpu-pods.txt
+```
 
+# Exercise 13.3
 
 >Metric-Server
 
