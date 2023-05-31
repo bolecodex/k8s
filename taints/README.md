@@ -10,13 +10,12 @@ kubectl get pod -o wide | grep taintdeploy
 
 # Demo 2: Taint and toleration
 ```
-kubectl taint nodes worker1 examplekey=value1:NoSchedule
+kubectl taint nodes worker1 storage=ssd:NoSchedule
 kubectl describe nodes worker1
 kubectl create deployment nginx-taint --image=nginx
 kubectl scale deployment nginx-taint –replicas=3
 kubectl get pods –o wide # will show that pods are all on worker2
-kubectl create –f taint-toleration.yaml # Note the example-key
-which much match the key that was set in the node
+kubectl create –f taint-toleration.yaml
 ```
 
 # Exercise 12.2
