@@ -23,7 +23,7 @@ kubectl apply -f list-pods.yaml
 kubectl apply -f list-pods-mysa-binding.yaml
 4. Create a Pod that uses the mysa SA to access this Role: 
 kubectl apply -f mysapod.yaml
-5. Access the Pod, use the mysa ServiceAccount token and try again:
+5. Access the Pod using k exec -it mysapod -- sh, use the mysa ServiceAccount token and try again:
   1. apk add --update curl
   2. TOKEN=$(cat /run/secrets/kubernetes.io/serviceaccount/token)
   3. curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/ --insecure
