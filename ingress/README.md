@@ -14,7 +14,9 @@ kubectl create ingress nginxsvc --class=nginx --rule=nginxsvc.info/*=nginxsvc:80
 kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 8080:80
 # press "ctrl" + "z"
 bg
+sudo -i
 echo "127.0.0.1 nginxsvc.info" >> /etc/hosts
+exit
 curl nginxsvc.info:8080
 ```
 
