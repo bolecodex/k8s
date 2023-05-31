@@ -1,4 +1,4 @@
-# Demo 1: Allow user Pods to also run on the control node
+# Demo 1: Allow user pods to also run on the control node
 ```
 kubectl taint node control node-role.kubernetes.io/control-plane:NoSchedule-
 # Another option:
