@@ -1,3 +1,20 @@
+# Demo: Backing up the Etcd
+```
+sudo apt install etcd-client
+sudo etcdctl --help; sudo ETCDCTL_API=3 etcdctl --help
+ps aux | grep etcd
+sudo ETCDCTL_API=3 etcdctl --endpoints=localhost:2379 \
+--cacert /etc/kubernetes/pki/etcd/ca.crt \
+--cert /etc/kubernetes/pki/etcd/server.crt \
+--key /etc/kubernetes/pki/etcd/server.key get / --prefix --keys-only
+sudo ETCDCTL_API=3 etcdctl --endpoints=localhost:2379 \
+--cacert /etc/kubernetes/pki/etcd/ca.crt \
+--cert /etc/kubernetes/pki/etcd/server.crt \
+--key /etc/kubernetes/pki/etcd/server.key snapshot save /tmp/etcdbackup.db
+sudo ETCDCTL_API=3 etcdctl --write-out=table snapshot status /tmp/etcdbackup.db
+cp /tmp/etcdbackup.db /tmp/etcdbackup.db.2
+```
+
 # Exercise 4.1 - etcd database backup
 
 1. etcd daemon search data directory
