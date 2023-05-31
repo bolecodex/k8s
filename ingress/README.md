@@ -4,10 +4,18 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 
-helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingressnginx --create-namespace
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
 kubectl get pods -n ingress-nginx
 kubectl create deploy nginxsvc --image=nginx --port=80
 kubectl expose deploy nginxsvc
+kubectl describe svc nginxsvc 
+
+kubectl create ingress nginxsvc --class=nginx --rule=nginxsvc.info/*=nginxsvc:80
+kubectl port-forward -n ingress-nginx svc/ingress-nginx-controller 8080:80
+# press "ctrl" + "z"
+bg
+echo "127.0.0.1 nginxsvc.info" >> /etc/hosts
+curl nginxsvc.info:8080
 ```
 
 # Exercise 11.1
