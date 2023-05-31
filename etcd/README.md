@@ -17,6 +17,10 @@ sudo ETCDCTL_API=3 etcdctl --endpoints=localhost:2379 \
 sudo ETCDCTL_API=3 etcdctl --write-out=table snapshot status /tmp/etcdbackup.db
 cp /tmp/etcdbackup.db /tmp/etcdbackup.db.2
 ```
+# Task
+Create a backup of the etcd database. API version 3 is used for the current database. Write the backup to /var/exam/etcd-backup
+
+Delete some deployments
 
 # Exercise 4.1 - etcd database backup
 
