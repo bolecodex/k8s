@@ -5,7 +5,7 @@ kubectl taint node control node-role.kubernetes.io/control-plane:NoSchedule-
 kubectl edit node control
 # delete three lines of taint
 kubectl deploy taintdeploy --image=nginx replicas=3
-k get pod -o wide | grep taintdeploy 
+kubectl get pod -o wide | grep taintdeploy 
 ```
 # Exercise 12.2
 
