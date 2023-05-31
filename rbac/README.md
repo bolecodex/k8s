@@ -1,3 +1,11 @@
+Task 1
+```
+Create a role with the name "viewers", which allows permissions to view pods in the namespaces "roles"
+
+Create a Pod with the name "viewpod" in the namespaces "roles" which uses this role
+```
+
+
 # Exercise 15.2
 
 
