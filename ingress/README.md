@@ -1,3 +1,15 @@
+Demo: Installing Nginx Ingress Controller
+```
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingressnginx --create-namespace
+kubectl get pods -n ingress-nginx
+kubectl create deploy nginxsvc --image=nginx --port=80
+kubectl expose deploy nginxsvc
+```
+
 # Exercise 11.1
 
 
