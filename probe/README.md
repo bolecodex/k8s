@@ -1,6 +1,6 @@
 # Demo 1: Using ReadinessProbe
 ```
-kubectl create –f busybox-ready.yaml
+kubectl create -f busybox-ready.yaml
 kubectl get pods 
 # note the READY state, which is set to 0/1, which means that the Pod has successfully started, but is not considered ready.
 kubectl edit pods busybox-ready and change /tmp/nothing to /etc/hosts.
@@ -12,6 +12,6 @@ kubectl get pods
 ```
 # Demo 2: Using LivenessProbe
 ```
-kubectl create –f nginx-probes.yaml
+kubectl create -f nginx-probes.yaml
 kubectl get pods
 ```
