@@ -6,9 +6,9 @@ kubectl get pods
 kubectl get jobs onejob -o yaml | grep restartPolicy
 kubectl delete job onejob
 kubectl create job mynewjob --image=busybox --dry-run=client -o yaml -- sleep 5 > mynewjob.yaml
-Edit mynewjob.yaml and include the following in job.spec
-completions: 3
-ttlSecondsAfterFinished: 60
+#Edit mynewjob.yaml and include the following in job.spec
+#   completions: 3
+#   ttlSecondsAfterFinished: 60
 kubectl create -f mynewjob.yaml
 ```
 # Exercise 6.3
