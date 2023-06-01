@@ -1,4 +1,4 @@
-# Demo
+# Demo: Using SecurityContext
 ```
 kubectl apply -f securitycontextdemo.yaml
 kubectl exec -it security-context-demo -- sh
