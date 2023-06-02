@@ -1,8 +1,8 @@
 # Demo 1: Installing the Helm Binary
 ```
-# Fetch the binary from https://github.com/helm/helm/releases; check for the latest release!
-tar xvf helm-xxxx.tar.gz
-sudo mv linux-amd64/helm /usr/local/bin
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
 helm version
 ```
 # Demo 2: Managing Helm Repositories
