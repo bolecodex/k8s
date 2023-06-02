@@ -1,3 +1,16 @@
+# Demo 1: Providing Variables with ConfigMaps
+```
+• vim varsfile
+MYSQL_ROOT_PASSWORD=password
+MYSQL_USER=anna
+kubectl create cm mydbvars --from-env-file=varsfile
+kubectl create deploy mydb --image=mariadb --replicas=3
+kubectl get all --selector app=mydb
+kubectl set env deploy mydb --from=configmap/mydbvars
+kubectl get all --selector app=mydb
+kubectl get deploy mydb -o yaml
+```
+
 # Exercise 8.1
 
 
