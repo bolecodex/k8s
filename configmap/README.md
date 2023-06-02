@@ -11,6 +11,14 @@ kubectl get all --selector app=mydb
 kubectl get deploy mydb -o yaml
 ```
 
+# Demo 2: Using a ConfigMap with a Configuration File
+```
+echo "hello world" > index.html
+kubectl create cm myindex --from-file=index.html
+kubectl describe cm myindex
+kubectl create deploy myweb --image=nginx 
+```
+
 # Exercise 8.1
 
 
