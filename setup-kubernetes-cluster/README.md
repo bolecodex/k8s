@@ -53,7 +53,7 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/master/m
 kubectl get nodes
 kubectl get pods --all-namespaces
 ```
-# Add auto-completion and shortcuts
+## Add auto-completion and shortcuts
 ```
 source <(kubectl completion bash)
 echo "source <(kubectl completion bash)" >> ~/.bashrc
