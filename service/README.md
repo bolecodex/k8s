@@ -1,7 +1,10 @@
-**Task**
-
-Reconfigure the existing deployment front-end and add a port specification named http exposing port 80/tcp of the existing container nginx.
-
-Create a new service named front-end-svc exposing the container port http.
-
-Configure the new service to also expose the individual Pods via a NodePort on the nodes on which they are scheduled.
+# Demo: Creating Services
+```
+kubectl create deployment nginxsvc --image=nginx
+kubectl scale deployment nginxsvc --replicas=3
+kubectl expose deployment nginxsvc --port=80
+kubectl describe svc nginxsvc # look for endpoints
+kubectl get svc nginxsvc -o=yaml
+kubectl get svc
+kubectl get endpoints
+```
