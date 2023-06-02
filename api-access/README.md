@@ -1,6 +1,7 @@
 # Demo: Using curl to Access API Resources
 ```
-On the host that runs kubectl: kubectl proxy --port=8001 &
+# On the host that runs kubectl: 
+kubectl proxy --port=8001 &
 kubectl create deploy curlnginx --image=nginx --replicas=3
 curl http://localhost:8001/version
 curl http://localhost:8001/api/v1/namespaces/default/pods # shows the Pods
