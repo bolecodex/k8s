@@ -5,7 +5,7 @@ kubectl proxy --port=8001 &
 kubectl create deploy curlnginx --image=nginx --replicas=3
 curl http://localhost:8001/version
 curl http://localhost:8001/api/v1/namespaces/default/pods # shows the Pods
-kubectl get pod -l run=curlnginx
+kubectl get pod -l app=curlnginx
 curl http://localhost:8001/api/v1/namespaces/default/pods/curlnginx-xxx-yyy/ # shows direct API access to a Pod
 curl -XDELETE
 http://localhost:8001/api/v1/namespaces/default/pods/curlnginx-xxx-yyy # will delete the httpd Pod
