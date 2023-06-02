@@ -1,8 +1,4 @@
-# Terraform code for creating lab environment
-
-Terraform code for creating EC2 Instance in cloud9 environments
-
-## Create lab environment
+# Create lab environment
 
 1. Installing Terraform and Registering AWS Credentials via AWS CLI
 
@@ -23,7 +19,7 @@ terraform apply --auto-approve
 terraform output
 ```
 
-## Execute the following in all nodes
+## Install packages
 
 ```
 git clone https://github.com/bolecodex/k8s.git
@@ -31,17 +27,22 @@ cd k8s/setup-kubernetes-cluster
 chmod +x setup-container.sh
 chmod +x setup-kubetools.sh
 sudo ./setup-container.sh
+```
+```
 sudo ./setup-kubetools.sh
 ```
 
+## Initialize in control plane
 ```
-# Execute the following in control node
 sudo kubeadm init
-
+```
+## Join the worker node
+```
 # Copy te output and execute the "sudo kubeadm join ..." command in work nodes
+sudo kubeadm join ...
 # if the command is lost, you can create a new one with "kubeadm token create --print-join-command"
 ```
-
+## Run in control plane
 ```
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -52,7 +53,7 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/master/m
 kubectl get nodes
 kubectl get pods --all-namespaces
 ```
-
+# Add auto-completion and shortcuts
 ```
 source <(kubectl completion bash)
 echo "source <(kubectl completion bash)" >> ~/.bashrc
