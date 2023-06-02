@@ -1,5 +1,14 @@
-# Exercise 14.1
+# Demo: Creating Custom Resources
+```
+cat crd-object.yaml
+kubectl create -f crd-object.yaml
+kubectl api-resources | grep backup
+cat crd-backup.yaml
+kubectl create -f crd-backup.yaml
+kubectl get backups
+```
 
+# Exercise 14.1
 
 1. Check the cluster's CRD
 ```
