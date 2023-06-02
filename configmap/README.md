@@ -16,7 +16,7 @@ kubectl get deploy mydb -o yaml
 echo "hello world" > index.html
 kubectl create cm myindex --from-file=index.html
 kubectl describe cm myindex
-kubectl create deploy myweb --image=nginx 
+kubectl create deploy myweb --image=nginx --dry-run=client -o yaml > cm.yaml
 ```
 ```
 apiVersion: apps/v1
