@@ -1,14 +1,10 @@
 # Create lab environment
 
-1. Installing Terraform and Registering AWS Credentials via AWS CLI
-
-2. Create a Terraform environment
+## Run in Cloud9 
 ```
+git clone https://github.com/bolecodex/k8s.git
+cd k8s/setup-kubernetes-cluster
 terraform init
-```
-
-3. Infrastructure creation
-```
 terraform apply --auto-approve
 ```
 
@@ -19,7 +15,7 @@ terraform apply --auto-approve
 terraform output
 ```
 
-## Install packages
+## Install packages in both control plane and worker nodes
 
 ```
 git clone https://github.com/bolecodex/k8s.git
