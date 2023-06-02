@@ -46,10 +46,10 @@ spec:
         volumeMounts:
         - mountPath: /usr/share/nginx/html
           name: cmvol
-    volumes:
-    - name: cmvol
-      configMap:
-        name: myindex
+      volumes:
+      - name: cmvol
+        configMap:
+          name: myindex
 status: {}
 ```
 
