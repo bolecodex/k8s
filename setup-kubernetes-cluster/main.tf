@@ -167,13 +167,13 @@ EOF
 
 # Output
 output "cp_ip_address" {
-  value = aws_instance.cp.public_ip
+  value = "ssh student@${aws_instance.cp.public_ip}; Enter password: asdf1234"
 }
 
 output "worker1_ip_address" {
-  value = aws_instance.worker1.public_ip
+  value = "ssh student@${aws_instance.worker1.public_ip}; Enter password: asdf1234"
 }
 
 output "worker2_ip_address" {
-  value = aws_instance.worker2.public_ip
+  value = "ssh student@${aws_instance.worker2.public_ip}; Enter password: asdf1234"
 }
