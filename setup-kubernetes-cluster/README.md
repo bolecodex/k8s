@@ -31,7 +31,7 @@ cd k8s/setup-kubernetes-cluster
 chmod +x setup-container.sh
 chmod +x setup-kubetools-ubuntu.sh
 ./setup-container.sh
-./setup-kubetools-ubuntu.sh
+./setup-kubetools.sh
 ```
 
 ```
