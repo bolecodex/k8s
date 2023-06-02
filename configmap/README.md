@@ -18,6 +18,32 @@ kubectl create cm myindex --from-file=index.html
 kubectl describe cm myindex
 kubectl create deploy myweb --image=nginx 
 ```
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: myweb
+  name: myweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myweb
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: myweb
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+status: {}
+```
 
 # Exercise 8.1
 
