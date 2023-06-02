@@ -54,6 +54,9 @@ status: {}
 ```
 ```
 kubectl apply -f cm.yaml
+kubectl expose deploy myweb --port=80
+kubectl get svc myweb
+curl <cluster-ip>
 ```
 
 # Exercise 8.1
