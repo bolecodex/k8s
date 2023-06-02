@@ -1,12 +1,12 @@
 # Demo: Using curl to Access API Resources
 ```
 On the host that runs kubectl: kubectl proxy --port=8001 &
-kubectl create deploy curlginx --image=nginx --replicas=3
+kubectl create deploy curlnginx --image=nginx --replicas=3
 curl http://localhost:8001/version
 curl http://localhost:8001/api/v1/namespaces/default/pods # shows the Pods
-curl http://localhost:8001/api/v1/namespaces/default/pods/curlginx/ # shows direct API access to a Pod
+curl http://localhost:8001/api/v1/namespaces/default/pods/curlnginx/ # shows direct API access to a Pod
 curl -XDELETE
-http://localhost:8001/api/v1/namespaces/default/pods/curlginx-xxx-yyy # will delete the httpd Pod
+http://localhost:8001/api/v1/namespaces/default/pods/curlnginx-xxx-yyy # will delete the httpd Pod
 ```
 
 # Exercise 5.1 - Configuring TLS Access
