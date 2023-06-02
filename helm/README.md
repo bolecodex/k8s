@@ -17,6 +17,7 @@ helm repo update
 helm install bitnami/mysql --generate-name
 kubectl get all
 helm show chart bitnami/mysql
+helm show values bitnami/mysql
 helm show all bitnami/mysql
 helm list
 helm status mysql-xxxx
