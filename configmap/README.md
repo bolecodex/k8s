@@ -1,6 +1,6 @@
 # Demo 1: Providing Variables with ConfigMaps
 ```
-• vim varsfile
+vim varsfile
 MYSQL_ROOT_PASSWORD=password
 MYSQL_USER=anna
 kubectl create cm mydbvars --from-env-file=varsfile
