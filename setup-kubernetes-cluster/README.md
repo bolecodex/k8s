@@ -29,7 +29,7 @@ terraform output
 git clone https://github.com/bolecodex/k8s.git
 cd k8s/setup-kubernetes-cluster
 chmod +x setup-container.sh
-chmod +x setup-kubetools-ubuntu.sh
+chmod +x setup-kubetools.sh
 ./setup-container.sh
 ./setup-kubetools.sh
 ```
