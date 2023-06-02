@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-northeast-2"
+  region = "us-west-2"
 }
 
 # Network
@@ -76,7 +76,7 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "cp" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.large"
+  instance_type = "t3.small"
   root_block_device {
     volume_size = 20
   }
@@ -105,9 +105,9 @@ EOF
   }
 }
 
-resource "aws_instance" "worker" {
+resource "aws_instance" "worker1" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.large"
+  instance_type = "t2.micro"
   root_block_device {
     volume_size = 20
   }
@@ -117,7 +117,7 @@ resource "aws_instance" "worker" {
   ]
   user_data = <<EOF
 #!/bin/bash
-hostnamectl set-hostname worker
+hostnamectl set-hostname worker1
 adduser --quiet --disabled-password --shell /bin/bash --home /home/student --gecos 'Student' student
 echo 'student:asdf1234' | chpasswd
 sed 's/PasswordAuthentication no/PasswordAuthentication yes/' -i /etc/ssh/sshd_config
@@ -127,7 +127,37 @@ echo 'student ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 EOF
 
   tags = {
-    Name = "worker"
+    Name = "worker1"
+  }
+  
+  lifecycle {
+    ignore_changes = [ami]
+  }
+}
+
+resource "aws_instance" "worker2" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t2.micro"
+  root_block_device {
+    volume_size = 20
+  }
+  subnet_id = aws_subnet.this.id
+  vpc_security_group_ids = [
+    aws_security_group.this.id
+  ]
+  user_data = <<EOF
+#!/bin/bash
+hostnamectl set-hostname worker2
+adduser --quiet --disabled-password --shell /bin/bash --home /home/student --gecos 'Student' student
+echo 'student:asdf1234' | chpasswd
+sed 's/PasswordAuthentication no/PasswordAuthentication yes/' -i /etc/ssh/sshd_config
+systemctl restart sshd
+usermod -aG sudo student
+echo 'student ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+EOF
+
+  tags = {
+    Name = "worker2"
   }
   
   lifecycle {
@@ -140,6 +170,10 @@ output "cp_ip_address" {
   value = aws_instance.cp.public_ip
 }
 
-output "worker_ip_address" {
-  value = aws_instance.worker.public_ip
+output "worker1_ip_address" {
+  value = aws_instance.worker1.public_ip
+}
+
+output "worker2_ip_address" {
+  value = aws_instance.worker2.public_ip
 }
