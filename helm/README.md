@@ -1,3 +1,27 @@
+# Demo 1: Installing the Helm Binary
+```
+# Fetch the binary from https://github.com/helm/helm/releases; check for the latest release!
+tar xvf helm-xxxx.tar.gz
+sudo mv linux-amd64/helm /usr/local/bin
+helm version
+```
+# Demo 2: Managing Helm Repositories
+```
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo list
+helm search repo bitnami
+helm repo update
+```
+# Demo 3: Installing Helm Charts
+```
+helm install bitnami/mysql --generate-name
+kubectl get all
+helm show chart bitnami/mysql
+helm show all bitnami/mysql
+helm list
+helm status mysql-xxxx
+```
+
 # Exercise 10.1
 
 
