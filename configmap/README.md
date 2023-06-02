@@ -17,6 +17,7 @@ echo "hello world" > index.html
 kubectl create cm myindex --from-file=index.html
 kubectl describe cm myindex
 kubectl create deploy myweb --image=nginx --dry-run=client -o yaml > cm.yaml
+vim cm.yaml
 ```
 ```
 apiVersion: apps/v1
@@ -42,6 +43,13 @@ spec:
       - image: nginx
         name: nginx
         resources: {}
+**        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: cmvol
+    volumes:
+    - name: cmvol
+      configMap:
+        name: myindex**
 status: {}
 ```
 
