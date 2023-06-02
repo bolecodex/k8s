@@ -1,6 +1,6 @@
 # Create lab environment
 
-## Run in Cloud9 
+## Run in AWS Cloud9 
 ```
 git clone https://github.com/bolecodex/k8s.git
 cd k8s/setup-kubernetes-cluster
