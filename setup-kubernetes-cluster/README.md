@@ -30,8 +30,8 @@ git clone https://github.com/bolecodex/k8s.git
 cd k8s/setup-kubernetes-cluster
 chmod +x setup-container.sh
 chmod +x setup-kubetools.sh
-./setup-container.sh
-./setup-kubetools.sh
+sudo ./setup-container.sh
+sudo ./setup-kubetools.sh
 ```
 
 ```
