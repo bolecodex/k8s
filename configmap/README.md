@@ -52,6 +52,9 @@ spec:
           name: myindex
 status: {}
 ```
+```
+kubectl apply -f cm.yaml
+```
 
 # Exercise 8.1
 
