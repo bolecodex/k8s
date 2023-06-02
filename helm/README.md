@@ -17,12 +17,19 @@ helm repo update
 helm install bitnami/mysql --generate-name
 kubectl get all
 helm show chart bitnami/mysql
-helm show values bitnami/mysql
 helm show all bitnami/mysql
 helm list
 helm status mysql-xxxx
 ```
-
+# Demo 4: Customizing Before Install
+```
+helm show values bitnami/nginx
+helm pull bitnami/nginx
+tar xvf nginx-xxxx
+vim nginx/values.yaml
+helm template --debug nginx
+helm install -f nginx/values.yaml my-nginx nginx/
+```
 # Exercise 10.1
 
 
