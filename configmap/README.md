@@ -43,13 +43,13 @@ spec:
       - image: nginx
         name: nginx
         resources: {}
-**        volumeMounts:
+        volumeMounts:
         - mountPath: /usr/share/nginx/html
           name: cmvol
     volumes:
     - name: cmvol
       configMap:
-        name: myindex**
+        name: myindex
 status: {}
 ```
 
