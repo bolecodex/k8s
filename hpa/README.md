@@ -12,10 +12,8 @@ kubectl autoscale deployment php-apache --cpu-percent=1 --
 min=1 --max=10
 kubectl get hpa
 ```
-···
-From another terminal: kubectl run -it load-generator --rm --
-image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do
-wget -q -O - http://php-apache; done"
+```
+From another terminal: kubectl run -it load-generator --rm --image=busybox --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O - http://php-apache; done"
 Back to the original terminal: sleep 60; kubectl get hpa
 kubectl get hpa # may need 2 minutes
 kubectl get deploy php-apache
