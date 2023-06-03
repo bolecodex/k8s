@@ -1,6 +1,6 @@
 # Demo: Creating a DaemonSet
 ```
-kubectl create deploy daemondemo --image=nginx --dryrun=client -o=yaml > daemondemo.yaml
+kubectl create deploy daemondemo --image=nginx --dry-run=client -o=yaml > daemondemo.yaml
 Change kind: to kind: DaemonSet
 Delete replicas, strategy and status
 kubectl create -f daemondemo.yaml
