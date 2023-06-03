@@ -20,3 +20,5 @@ kubectl delete pod load-generator
 kubectl get hpa # may need 2 minutes
 kubectl get deploy php-apache
 ```
+
+Need further investigation
