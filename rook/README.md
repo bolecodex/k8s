@@ -1,4 +1,4 @@
-# Demo Setting up Rook
+# Demo: Setting up Rook
 ```
 # On a 3 node cluster, ensure each node has a /dev/sdb device
 kubectl create -f crds.yaml -f common.yaml -f operator.yaml
