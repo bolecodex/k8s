@@ -28,10 +28,10 @@ minikube ssh
 curl http://svc-ip-address
 exit
 kubectl edit svc nginxsvc
-…
-protocol: TCP
-nodePort: 32000
-type: NodePort
+#   …
+#   protocol: TCP
+#   nodePort: 32000
+# type: NodePort
 kubectl get svc
 (from host): curl http://$(minikube ip):32000
 ```
@@ -49,8 +49,7 @@ kubectl get pods -n ingress-nginx
 kubectl get deployment
 kubectl get svc nginxsvc
 curl http://$(minikube ip):32000
-kubectl create ingress nginxsvc-ingress --rule="/=nginxsvc:80" --
-rule="/hello=newdep:8080"
+kubectl create ingress nginxsvc-ingress --rule="/=nginxsvc:80" --rule="/hello=newdep:8080"
 sudo vim /etc/hosts
 $(minikube ip) nginxsvc.info
 kubectl get ingress - wait until it shows an IP address
