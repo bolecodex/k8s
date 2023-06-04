@@ -1,4 +1,4 @@
-Demo Step 1: Running the Old Version
+# Demo Step 1: Running the Old Version
 ```
 kubectl create deploy old-nginx --image=nginx:1.14 --replicas=3 --dry-run=client -o yaml > ~/oldnginx.yaml
 vim oldnginx.yaml
@@ -10,7 +10,7 @@ minikube ssh; curl <svc-ip-address>
 # a few times, you'll see all the same
 ```
 
-Demo Step 2: Creating a ConfigMap
+# Demo Step 2: Creating a ConfigMap
 ```
 kubectl cp <old-nginx-pod>:usr/share/nginx/html/index.html index.html
 vim index.html
@@ -19,7 +19,7 @@ kubectl create configmap canary --from-file=index.html
 kubectl describe cm canary
 ```
 
-Demo Step 3: Preparing the New Version
+# Demo Step 3: Preparing the New Version
 ```
 cp oldnginx.yaml canary.yaml
 vim canary.yaml
@@ -34,7 +34,7 @@ curl <service-ip>
 # notice different results: this is canary in action
 ```
 
-Demo Step 4: Activating the New Version
+# Demo Step 4: Activating the New Version
 ```
 kubectl get deploy # verify the names of the old and the new deployment
 kubectl scale deploy new-nginx --replicas=2
