@@ -52,7 +52,7 @@ curl http://$(minikube ip):32000
 kubectl create ingress nginxsvc-ingress --rule="/=nginxsvc:80" --rule="/hello=newdep:8080"
 sudo vim /etc/hosts
 $(minikube ip) nginxsvc.info
-kubectl get ingress - wait until it shows an IP address
+kubectl get ingress # wait until it shows an IP address
 curl nginxsvc.info
 kubectl create deployment newdep --image=gcr.io/google-samples/helloapp:2.0
 kubectl expose deployment newdep --port=8080
