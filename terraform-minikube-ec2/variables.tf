@@ -4,12 +4,6 @@ variable "region" {
   default     = "us-east-1"
 }
 
-variable "kubeconfig_output_location" {
-  type        = string
-  description = "KubeConfig file Location"
-  default     = "kubeconfig"
-}
-
 variable "minikube_instance_name" {
   type        = string
   description = "Minikube EC2 Instance name"

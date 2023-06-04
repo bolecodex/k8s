@@ -18,9 +18,23 @@ resource "tls_private_key" "private_key" {
   algorithm = "RSA"
 }
 
+locals {
+  pem_file     = "~/.ssh/minikube.pem"
+  key_name     = "minikube"
+}
+
 resource "aws_key_pair" "aws_keypair" {
   public_key = tls_private_key.private_key.public_key_openssh
-  key_name   = "minikube"
+  key_name   = local.key_name
+  
+  provisioner "local-exec" {
+    command = <<-EOT
+      rm -rf ${local.pem_file}
+      echo '${tls_private_key.private_key.private_key_pem}' > ${local.pem_file}
+      chmod 400 ${local.pem_file}
+      ls -l ${local.pem_file} > /tmp/out
+    EOT
+  }
 }
 
 resource "aws_security_group" "allow_kube_api_server" {
@@ -89,18 +103,10 @@ resource "aws_security_group" "allow_additional_exposed_ports" {
   ]
 }
 
-resource "aws_eip" "instance_elastic_ip" {}
-
 data "aws_ec2_instance_type" "this" {
   instance_type = var.instance_type
 }
 
-locals {
-  setup_minikube_command = <<EOT
-/home/ubuntu/setup_minikube.sh \
---elastic-ip ${aws_eip.instance_elastic_ip.public_ip} 
-EOT
-}
 
 resource "aws_instance" "minikube_instance" {
   ami           = data.aws_ami.ubuntu.id
@@ -115,41 +121,40 @@ resource "aws_instance" "minikube_instance" {
     Name = var.minikube_instance_name
   }
 
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = tls_private_key.private_key.private_key_pem
-    host        = self.public_ip
-  }
+  user_data = <<EOF
+#!/bin/bash
+ARCH=$(arch)
+sudo apt-get update -y
+sudo apt-get install ca-certificates curl gnupg lsb-release -y
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update -y
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
 
-  provisioner "file" {
-    source      = "${path.module}/scripts/setup_minikube.sh"
-    destination = "/home/ubuntu/setup_minikube.sh"
-  }
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /home/ubuntu/setup_minikube.sh",
-      local.setup_minikube_command
-    ]
-  }
-}
+if [ $ARCH = "x86_64" ]
+then
+  echo executing on $ARCH
+  curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+  chmod +x ./kubectl
+  sudo mv ./kubectl /usr/local/bin/kubectl
 
-resource "null_resource" "download_kubeconfig" {
-  depends_on = [
-    aws_instance.minikube_instance
-  ]
-  triggers = {
-    "timestamp" = timestamp()
-  }
-  provisioner "local-exec" {
-    command = "${path.module}/scripts/download_kubeconfig.sh \"$PRIVATE_KEY\" ubuntu ${aws_eip.instance_elastic_ip.public_ip} ${var.kubeconfig_output_location}"
-    environment = {
-      PRIVATE_KEY = tls_private_key.private_key.private_key_pem
-    }
-  }
-}
+  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+  sudo install minikube-linux-amd64 /usr/local/bin/minikube
+fi
 
-resource "aws_eip_association" "minikube_eip_assoc" {
-  instance_id   = aws_instance.minikube_instance.id
-  allocation_id = aws_eip.instance_elastic_ip.id
+if [ $ARCH = "aarch64" ]
+then
+  curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-arm64
+  sudo install minikube-linux-arm64 /usr/local/bin/minikube
+  sudo snap install kubectl --classic 
+fi
+
+echo the script is now ready
+echo manually run minikube start --vm-driver=docker --cni=calico to start minikube
+
+sudo usermod -aG docker $USER
+newgrp docker
+EOF
+
 }
