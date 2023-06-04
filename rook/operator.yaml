@@ -25,21 +25,42 @@ data:
   # The logging level for the operator: ERROR | WARNING | INFO | DEBUG
   ROOK_LOG_LEVEL: "INFO"
 
+  # Allow using loop devices for osds in test clusters.
+  ROOK_CEPH_ALLOW_LOOP_DEVICES: "false"
+
   # Enable the CSI driver.
   # To run the non-default version of the CSI driver, see the override-able image properties in operator.yaml
   ROOK_CSI_ENABLE_CEPHFS: "true"
   # Enable the default version of the CSI RBD driver. To start another version of the CSI driver, see image properties below.
   ROOK_CSI_ENABLE_RBD: "true"
+  # Enable the CSI NFS driver. To start another version of the CSI driver, see image properties below.
+  ROOK_CSI_ENABLE_NFS: "false"
   ROOK_CSI_ENABLE_GRPC_METRICS: "false"
+
+  # Set to true to enable Ceph CSI pvc encryption support.
+  CSI_ENABLE_ENCRYPTION: "false"
 
   # Set to true to enable host networking for CSI CephFS and RBD nodeplugins. This may be necessary
   # in some network configurations where the SDN does not provide access to an external cluster or
   # there is significant drop in read/write performance.
   # CSI_ENABLE_HOST_NETWORK: "true"
 
-  # Set logging level for csi containers.
+  # Set to true to enable adding volume metadata on the CephFS subvolume and RBD images.
+  # Not all users might be interested in getting volume/snapshot details as metadata on CephFS subvolume and RBD images.
+  # Hence enable metadata is false by default.
+  # CSI_ENABLE_METADATA: "true"
+
+  # cluster name identifier to set as metadata on the CephFS subvolume and RBD images. This will be useful in cases
+  # like for example, when two container orchestrator clusters (Kubernetes/OCP) are using a single ceph cluster.
+  # CSI_CLUSTER_NAME: "my-prod-cluster"
+
+  # Set logging level for cephCSI containers maintained by the cephCSI.
   # Supported values from 0 to 5. 0 for general useful logs, 5 for trace level verbosity.
   # CSI_LOG_LEVEL: "0"
+
+  # Set logging level for Kubernetes-csi sidecar containers.
+  # Supported values from 0 to 5. 0 for general useful logs (the default), 5 for trace level verbosity.
+  # CSI_SIDECAR_LOG_LEVEL: "0"
 
   # Set replicas for csi provisioner deployment.
   CSI_PROVISIONER_REPLICAS: "2"
@@ -53,6 +74,9 @@ data:
   # set to false to disable deployment of snapshotter container in CephFS provisioner pod.
   CSI_ENABLE_CEPHFS_SNAPSHOTTER: "true"
 
+  # set to false to disable deployment of snapshotter container in NFS provisioner pod.
+  CSI_ENABLE_NFS_SNAPSHOTTER: "true"
+
   # set to false to disable deployment of snapshotter container in RBD provisioner pod.
   CSI_ENABLE_RBD_SNAPSHOTTER: "true"
 
@@ -64,11 +88,15 @@ data:
 
   # (Optional) policy for modifying a volume's ownership or permissions when the RBD PVC is being mounted.
   # supported values are documented at https://kubernetes-csi.github.io/docs/support-fsgroup.html
-  CSI_RBD_FSGROUPPOLICY: "ReadWriteOnceWithFSType"
+  CSI_RBD_FSGROUPPOLICY: "File"
 
   # (Optional) policy for modifying a volume's ownership or permissions when the CephFS PVC is being mounted.
   # supported values are documented at https://kubernetes-csi.github.io/docs/support-fsgroup.html
-  CSI_CEPHFS_FSGROUPPOLICY: "ReadWriteOnceWithFSType"
+  CSI_CEPHFS_FSGROUPPOLICY: "File"
+
+  # (Optional) policy for modifying a volume's ownership or permissions when the NFS PVC is being mounted.
+  # supported values are documented at https://kubernetes-csi.github.io/docs/support-fsgroup.html
+  CSI_NFS_FSGROUPPOLICY: "File"
 
   # (Optional) Allow starting unsupported ceph-csi image
   ROOK_CSI_ALLOW_UNSUPPORTED_VERSION: "false"
@@ -79,18 +107,21 @@ data:
   # The default version of CSI supported by Rook will be started. To change the version
   # of the CSI driver to something other than what is officially supported, change
   # these images to the desired release of the CSI driver.
-  # ROOK_CSI_CEPH_IMAGE: "quay.io/cephcsi/cephcsi:v3.6.0"
-  # ROOK_CSI_REGISTRAR_IMAGE: "k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.5.0"
-  # ROOK_CSI_RESIZER_IMAGE: "k8s.gcr.io/sig-storage/csi-resizer:v1.4.0"
-  # ROOK_CSI_PROVISIONER_IMAGE: "k8s.gcr.io/sig-storage/csi-provisioner:v3.1.0"
-  # ROOK_CSI_SNAPSHOTTER_IMAGE: "k8s.gcr.io/sig-storage/csi-snapshotter:v5.0.1"
-  # ROOK_CSI_ATTACHER_IMAGE: "k8s.gcr.io/sig-storage/csi-attacher:v3.4.0"
+  # ROOK_CSI_CEPH_IMAGE: "quay.io/cephcsi/cephcsi:v3.8.0"
+  # ROOK_CSI_REGISTRAR_IMAGE: "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.7.0"
+  # ROOK_CSI_RESIZER_IMAGE: "registry.k8s.io/sig-storage/csi-resizer:v1.7.0"
+  # ROOK_CSI_PROVISIONER_IMAGE: "registry.k8s.io/sig-storage/csi-provisioner:v3.4.0"
+  # ROOK_CSI_SNAPSHOTTER_IMAGE: "registry.k8s.io/sig-storage/csi-snapshotter:v6.2.1"
+  # ROOK_CSI_ATTACHER_IMAGE: "registry.k8s.io/sig-storage/csi-attacher:v4.1.0"
+
+  # To indicate the image pull policy to be applied to all the containers in the csi driver pods.
+  # ROOK_CSI_IMAGE_PULL_POLICY: "IfNotPresent"
 
   # (Optional) set user created priorityclassName for csi plugin pods.
-  # CSI_PLUGIN_PRIORITY_CLASSNAME: "system-node-critical"
+  CSI_PLUGIN_PRIORITY_CLASSNAME: "system-node-critical"
 
   # (Optional) set user created priorityclassName for csi provisioner pods.
-  # CSI_PROVISIONER_PRIORITY_CLASSNAME: "system-cluster-critical"
+  CSI_PROVISIONER_PRIORITY_CLASSNAME: "system-cluster-critical"
 
   # CSI CephFS plugin daemonset update strategy, supported values are OnDelete and RollingUpdate.
   # Default value is RollingUpdate.
@@ -98,6 +129,13 @@ data:
   # CSI RBD plugin daemonset update strategy, supported values are OnDelete and RollingUpdate.
   # Default value is RollingUpdate.
   # CSI_RBD_PLUGIN_UPDATE_STRATEGY: "OnDelete"
+  # A maxUnavailable parameter of CSI RBD plugin daemonset update strategy.
+  # Default value is 1.
+  # CSI_RBD_PLUGIN_UPDATE_STRATEGY_MAX_UNAVAILABLE: "1"
+
+  # CSI NFS plugin daemonset update strategy, supported values are OnDelete and RollingUpdate.
+  # Default value is RollingUpdate.
+  # CSI_NFS_PLUGIN_UPDATE_STRATEGY: "OnDelete"
 
   # kubelet directory path, if kubelet configured to use other than /var/lib/kubelet path.
   # ROOK_CSI_KUBELET_DIR_PATH: "/var/lib/kubelet"
@@ -106,33 +144,65 @@ data:
   # ROOK_CSI_CEPHFS_POD_LABELS: "key1=value1,key2=value2"
   # Labels to add to the CSI RBD Deployments and DaemonSets Pods.
   # ROOK_CSI_RBD_POD_LABELS: "key1=value1,key2=value2"
+  # Labels to add to the CSI NFS Deployments and DaemonSets Pods.
+  # ROOK_CSI_NFS_POD_LABELS: "key1=value1,key2=value2"
 
-  # (Optional) CephCSI provisioner NodeAffinity(applied to both CephFS and RBD provisioner).
+  # (Optional) CephCSI CephFS plugin Volumes
+  # CSI_CEPHFS_PLUGIN_VOLUME: |
+  #  - name: lib-modules
+  #    hostPath:
+  #      path: /run/current-system/kernel-modules/lib/modules/
+  #  - name: host-nix
+  #    hostPath:
+  #      path: /nix
+
+  # (Optional) CephCSI CephFS plugin Volume mounts
+  # CSI_CEPHFS_PLUGIN_VOLUME_MOUNT: |
+  #  - name: host-nix
+  #    mountPath: /nix
+  #    readOnly: true
+
+  # (Optional) CephCSI RBD plugin Volumes
+  # CSI_RBD_PLUGIN_VOLUME: |
+  #  - name: lib-modules
+  #    hostPath:
+  #      path: /run/current-system/kernel-modules/lib/modules/
+  #  - name: host-nix
+  #    hostPath:
+  #      path: /nix
+
+  # (Optional) CephCSI RBD plugin Volume mounts
+  # CSI_RBD_PLUGIN_VOLUME_MOUNT: |
+  #  - name: host-nix
+  #    mountPath: /nix
+  #    readOnly: true
+
+  # (Optional) CephCSI provisioner NodeAffinity (applied to both CephFS and RBD provisioner).
   # CSI_PROVISIONER_NODE_AFFINITY: "role=storage-node; storage=rook, ceph"
   # (Optional) CephCSI provisioner tolerations list(applied to both CephFS and RBD provisioner).
   # Put here list of taints you want to tolerate in YAML format.
   # CSI provisioner would be best to start on the same nodes as other ceph daemons.
   # CSI_PROVISIONER_TOLERATIONS: |
   #   - effect: NoSchedule
-  #     key: node-role.kubernetes.io/controlplane
+  #     key: node-role.kubernetes.io/control-plane
   #     operator: Exists
   #   - effect: NoExecute
   #     key: node-role.kubernetes.io/etcd
   #     operator: Exists
-  # (Optional) CephCSI plugin NodeAffinity(applied to both CephFS and RBD plugin).
+  # (Optional) CephCSI plugin NodeAffinity (applied to both CephFS and RBD plugin).
   # CSI_PLUGIN_NODE_AFFINITY: "role=storage-node; storage=rook, ceph"
   # (Optional) CephCSI plugin tolerations list(applied to both CephFS and RBD plugin).
   # Put here list of taints you want to tolerate in YAML format.
   # CSI plugins need to be started on all the nodes where the clients need to mount the storage.
   # CSI_PLUGIN_TOLERATIONS: |
   #   - effect: NoSchedule
-  #     key: node-role.kubernetes.io/controlplane
+  #     key: node-role.kubernetes.io/control-plane
   #     operator: Exists
   #   - effect: NoExecute
   #     key: node-role.kubernetes.io/etcd
   #     operator: Exists
 
-  # (Optional) CephCSI RBD provisioner NodeAffinity(if specified, overrides CSI_PROVISIONER_NODE_AFFINITY).
+  # (Optional) CephCSI RBD provisioner NodeAffinity (if specified, overrides CSI_PROVISIONER_NODE_AFFINITY).
   # CSI_RBD_PROVISIONER_NODE_AFFINITY: "role=rbd-node"
   # (Optional) CephCSI RBD provisioner tolerations list(if specified, overrides CSI_PROVISIONER_TOLERATIONS).
   # Put here list of taints you want to tolerate in YAML format.
@@ -140,7 +210,7 @@ data:
   # CSI_RBD_PROVISIONER_TOLERATIONS: |
   #   - key: node.rook.io/rbd
   #     operator: Exists
-  # (Optional) CephCSI RBD plugin NodeAffinity(if specified, overrides CSI_PLUGIN_NODE_AFFINITY).
+  # (Optional) CephCSI RBD plugin NodeAffinity (if specified, overrides CSI_PLUGIN_NODE_AFFINITY).
   # CSI_RBD_PLUGIN_NODE_AFFINITY: "role=rbd-node"
   # (Optional) CephCSI RBD plugin tolerations list(if specified, overrides CSI_PLUGIN_TOLERATIONS).
   # Put here list of taints you want to tolerate in YAML format.
@@ -149,7 +219,7 @@ data:
   #   - key: node.rook.io/rbd
   #     operator: Exists
 
-  # (Optional) CephCSI CephFS provisioner NodeAffinity(if specified, overrides CSI_PROVISIONER_NODE_AFFINITY).
+  # (Optional) CephCSI CephFS provisioner NodeAffinity (if specified, overrides CSI_PROVISIONER_NODE_AFFINITY).
   # CSI_CEPHFS_PROVISIONER_NODE_AFFINITY: "role=cephfs-node"
   # (Optional) CephCSI CephFS provisioner tolerations list(if specified, overrides CSI_PROVISIONER_TOLERATIONS).
   # Put here list of taints you want to tolerate in YAML format.
@@ -157,8 +227,16 @@ data:
   # CSI_CEPHFS_PROVISIONER_TOLERATIONS: |
   #   - key: node.rook.io/cephfs
   #     operator: Exists
-  # (Optional) CephCSI CephFS plugin NodeAffinity(if specified, overrides CSI_PLUGIN_NODE_AFFINITY).
+  # (Optional) CephCSI CephFS plugin NodeAffinity (if specified, overrides CSI_PLUGIN_NODE_AFFINITY).
   # CSI_CEPHFS_PLUGIN_NODE_AFFINITY: "role=cephfs-node"
+  # NOTE: Support for defining NodeAffinity for operators other than "In" and "Exists" requires the user to input a
+  # valid v1.NodeAffinity JSON or YAML string. For example, the following is valid YAML v1.NodeAffinity:
+  # CSI_CEPHFS_PLUGIN_NODE_AFFINITY: |
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #     nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: myKey
+  #           operator: DoesNotExist
   # (Optional) CephCSI CephFS plugin tolerations list(if specified, overrides CSI_PLUGIN_TOLERATIONS).
   # Put here list of taints you want to tolerate in YAML format.
   # CSI plugins need to be started on all the nodes where the clients need to mount the storage.
@@ -166,9 +244,26 @@ data:
   #   - key: node.rook.io/cephfs
   #     operator: Exists
 
+  # (Optional) CephCSI NFS provisioner NodeAffinity (overrides CSI_PROVISIONER_NODE_AFFINITY).
+  # CSI_NFS_PROVISIONER_NODE_AFFINITY: "role=nfs-node"
+  # (Optional) CephCSI NFS provisioner tolerations list (overrides CSI_PROVISIONER_TOLERATIONS).
+  # Put here list of taints you want to tolerate in YAML format.
+  # CSI provisioner would be best to start on the same nodes as other ceph daemons.
+  # CSI_NFS_PROVISIONER_TOLERATIONS: |
+  #   - key: node.rook.io/nfs
+  #     operator: Exists
+  # (Optional) CephCSI NFS plugin NodeAffinity (overrides CSI_PLUGIN_NODE_AFFINITY).
+  # CSI_NFS_PLUGIN_NODE_AFFINITY: "role=nfs-node"
+  # (Optional) CephCSI NFS plugin tolerations list (overrides CSI_PLUGIN_TOLERATIONS).
+  # Put here list of taints you want to tolerate in YAML format.
+  # CSI plugins need to be started on all the nodes where the clients need to mount the storage.
+  # CSI_NFS_PLUGIN_TOLERATIONS: |
+  #   - key: node.rook.io/nfs
+  #     operator: Exists
+
   # (Optional) CEPH CSI RBD provisioner resource requirement list, Put here list of resource
   # requests and limits you want to apply for provisioner pod
-  # CSI_RBD_PROVISIONER_RESOURCE: |
+  #CSI_RBD_PROVISIONER_RESOURCE: |
   #  - name : csi-provisioner
   #    resource:
   #      requests:
@@ -209,6 +304,14 @@ data:
   #      limits:
   #        memory: 1Gi
   #        cpu: 500m
+  #  - name : csi-omap-generator
+  #    resource:
+  #      requests:
+  #        memory: 512Mi
+  #        cpu: 250m
+  #      limits:
+  #        memory: 1Gi
+  #        cpu: 500m
   #  - name : liveness-prometheus
   #    resource:
   #      requests:
@@ -219,7 +322,7 @@ data:
   #        cpu: 100m
   # (Optional) CEPH CSI RBD plugin resource requirement list, Put here list of resource
   # requests and limits you want to apply for plugin pod
-  # CSI_RBD_PLUGIN_RESOURCE: |
+  #CSI_RBD_PLUGIN_RESOURCE: |
   #  - name : driver-registrar
   #    resource:
   #      requests:
@@ -246,7 +349,7 @@ data:
   #        cpu: 100m
   # (Optional) CEPH CSI CephFS provisioner resource requirement list, Put here list of resource
   # requests and limits you want to apply for provisioner pod
-  # CSI_CEPHFS_PROVISIONER_RESOURCE: |
+  #CSI_CEPHFS_PROVISIONER_RESOURCE: |
   #  - name : csi-provisioner
   #    resource:
   #      requests:
@@ -264,6 +367,14 @@ data:
   #        memory: 256Mi
   #        cpu: 200m
   #  - name : csi-attacher
+  #    resource:
+  #      requests:
+  #        memory: 128Mi
+  #        cpu: 100m
+  #      limits:
+  #        memory: 256Mi
+  #        cpu: 200m
+  #  - name : csi-snapshotter
   #    resource:
   #      requests:
   #        memory: 128Mi
@@ -289,7 +400,7 @@ data:
   #        cpu: 100m
   # (Optional) CEPH CSI CephFS plugin resource requirement list, Put here list of resource
   # requests and limits you want to apply for plugin pod
-  # CSI_CEPHFS_PLUGIN_RESOURCE: |
+  #CSI_CEPHFS_PLUGIN_RESOURCE: |
   #  - name : driver-registrar
   #    resource:
   #      requests:
@@ -315,13 +426,66 @@ data:
   #        memory: 256Mi
   #        cpu: 100m
 
-  # Configure CSI CSI Ceph FS grpc and liveness metrics port
+  # (Optional) CEPH CSI NFS provisioner resource requirement list, Put here list of resource
+  # requests and limits you want to apply for provisioner pod
+  # CSI_NFS_PROVISIONER_RESOURCE: |
+  #  - name : csi-provisioner
+  #    resource:
+  #      requests:
+  #        memory: 128Mi
+  #        cpu: 100m
+  #      limits:
+  #        memory: 256Mi
+  #        cpu: 200m
+  #  - name : csi-nfsplugin
+  #    resource:
+  #      requests:
+  #        memory: 512Mi
+  #        cpu: 250m
+  #      limits:
+  #        memory: 1Gi
+  #        cpu: 500m
+  #  - name : csi-attacher
+  #    resource:
+  #      requests:
+  #        memory: 128Mi
+  #        cpu: 100m
+  #      limits:
+  #        memory: 256Mi
+  #        cpu: 200m
+  # (Optional) CEPH CSI NFS plugin resource requirement list, Put here list of resource
+  # requests and limits you want to apply for plugin pod
+  # CSI_NFS_PLUGIN_RESOURCE: |
+  #  - name : driver-registrar
+  #    resource:
+  #      requests:
+  #        memory: 128Mi
+  #        cpu: 50m
+  #      limits:
+  #        memory: 256Mi
+  #        cpu: 100m
+  #  - name : csi-nfsplugin
+  #    resource:
+  #      requests:
+  #        memory: 512Mi
+  #        cpu: 250m
+  #      limits:
+  #        memory: 1Gi
+  #        cpu: 500m
+
+  # Configure CSI Ceph FS grpc and liveness metrics port
+  # Set to true to enable Ceph CSI liveness container.
+  CSI_ENABLE_LIVENESS: "false"
   # CSI_CEPHFS_GRPC_METRICS_PORT: "9091"
   # CSI_CEPHFS_LIVENESS_METRICS_PORT: "9081"
   # Configure CSI RBD grpc and liveness metrics port
   # CSI_RBD_GRPC_METRICS_PORT: "9090"
   # CSI_RBD_LIVENESS_METRICS_PORT: "9080"
   # CSIADDONS_PORT: "9070"
+
+  # Set CephFS Kernel mount options to use https://docs.ceph.com/en/latest/man/8/mount.ceph/#options
+  # Set to "ms_mode=secure" when connections.encrypted is enabled in CephCluster CR
+  # CSI_CEPHFS_KERNEL_MOUNT_OPTIONS: "ms_mode=secure"
 
   # Whether the OBC provisioner should watch on the operator namespace or not, if not the namespace of the cluster will be used
   ROOK_OBC_WATCH_OPERATOR_NAMESPACE: "true"
@@ -331,14 +495,42 @@ data:
   ROOK_ENABLE_DISCOVERY_DAEMON: "false"
   # The timeout value (in seconds) of Ceph commands. It should be >= 1. If this variable is not set or is an invalid value, it's default to 15.
   ROOK_CEPH_COMMANDS_TIMEOUT_SECONDS: "15"
-  # Enable the volume replication controller.
-  # Before enabling, ensure the Volume Replication CRDs are created.
-  # See https://rook.io/docs/rook/latest/ceph-csi-drivers.html#rbd-mirroring
-  CSI_ENABLE_VOLUME_REPLICATION: "false"
-  # CSI_VOLUME_REPLICATION_IMAGE: "quay.io/csiaddons/volumereplication-operator:v0.3.0"
   # Enable the csi addons sidecar.
   CSI_ENABLE_CSIADDONS: "false"
-  # ROOK_CSIADDONS_IMAGE: "quay.io/csiaddons/k8s-sidecar:v0.2.1"
+  # ROOK_CSIADDONS_IMAGE: "quay.io/csiaddons/k8s-sidecar:v0.5.0"
+  # The CSI GRPC timeout value (in seconds). It should be >= 120. If this variable is not set or is an invalid value, it's default to 150.
+  CSI_GRPC_TIMEOUT_SECONDS: "150"
+
+  ROOK_DISABLE_ADMISSION_CONTROLLER: "true"
+
+  # Enable topology based provisioning.
+  CSI_ENABLE_TOPOLOGY: "false"
+  # Domain labels define which node labels to use as domains
+  # for CSI nodeplugins to advertise their domains
+  # NOTE: the value here serves as an example and needs to be
+  # updated with node labels that define domains of interest
+  # CSI_TOPOLOGY_DOMAIN_LABELS: "kubernetes.io/hostname,topology.kubernetes.io/zone,topology.rook.io/rack"
+
+  # Enable read affinity for RBD volumes. Recommended to
+  # set to true if running kernel 5.8 or newer.
+  CSI_ENABLE_READ_AFFINITY: "false"
+  # CRUSH location labels define which node labels to use
+  # as CRUSH location. This should correspond to the values set in
+  # the CRUSH map.
+  # Defaults to all the labels mentioned in
+  # https://rook.io/docs/rook/latest/CRDs/Cluster/ceph-cluster-crd/#osd-topology
+  # CSI_CRUSH_LOCATION_LABELS: "kubernetes.io/hostname,topology.kubernetes.io/zone,topology.rook.io/rack"
+
+  # Whether to skip any attach operation altogether for CephCSI PVCs.
+  # See more details [here](https://kubernetes-csi.github.io/docs/skip-attach.html#skip-attach-with-csi-driver-object).
+  # If set to false it skips the volume attachments and makes the creation of pods using the CephCSI PVC fast.
+  # **WARNING** It's highly discouraged to use this for RWO volumes. for RBD PVC it can cause data corruption,
+  # csi-addons operations like Reclaimspace and PVC Keyrotation will also not be supported if set to false
+  # since we'll have no VolumeAttachments to determine which node the PVC is mounted on.
+  # Refer to this [issue](https://github.com/kubernetes/kubernetes/issues/103305) for more details.
+  CSI_CEPHFS_ATTACH_REQUIRED: "true"
+  CSI_RBD_ATTACH_REQUIRED: "true"
+  CSI_NFS_ATTACH_REQUIRED: "true"
 ---
 # OLM: BEGIN OPERATOR DEPLOYMENT
 apiVersion: apps/v1
@@ -357,6 +549,8 @@ spec:
   selector:
     matchLabels:
       app: rook-ceph-operator
+  strategy:
+    type: Recreate
   replicas: 1
   template:
     metadata:
@@ -399,7 +593,7 @@ spec:
             # - name: DISCOVER_TOLERATIONS
             #   value: |
             #     - effect: NoSchedule
-            #       key: node-role.kubernetes.io/controlplane
+            #       key: node-role.kubernetes.io/control-plane
             #       operator: Exists
             #     - effect: NoExecute
             #       key: node-role.kubernetes.io/etcd
@@ -424,17 +618,6 @@ spec:
             - name: ROOK_HOSTPATH_REQUIRES_PRIVILEGED
               value: "false"
 
-            # In some situations SELinux relabelling breaks (times out) on large filesystems, and doesn't work with cephfs ReadWriteMany volumes (last relabel wins).
-            # Disable it here if you have similar issues.
-            # For more details see https://github.com/rook/rook/issues/2417
-            - name: ROOK_ENABLE_SELINUX_RELABELING
-              value: "true"
-
-            # In large volumes it will take some time to chown all the files. Disable it here if you have performance issues.
-            # For more details see https://github.com/rook/rook/issues/2254
-            - name: ROOK_ENABLE_FSGROUP
-              value: "true"
-
             # Disable automatic orchestration when new devices are discovered
             - name: ROOK_DISABLE_DEVICE_HOTPLUG
               value: "false"
@@ -446,6 +629,16 @@ spec:
             # If value is empty, the default regex will be used.
             - name: DISCOVER_DAEMON_UDEV_BLACKLIST
               value: "(?i)dm-[0-9]+,(?i)rbd[0-9]+,(?i)nbd[0-9]+"
+
+            # - name: DISCOVER_DAEMON_RESOURCES
+            #   value: |
+            #     resources:
+            #       limits:
+            #         cpu: 500m
+            #         memory: 512Mi
+            #       requests:
+            #         cpu: 100m
+            #         memory: 128Mi
 
             # Time to wait until the node controller will move Rook pods to other
             # nodes after detecting an unreachable node.
@@ -480,7 +673,7 @@ spec:
           #resources:
           #  limits:
           #    cpu: 500m
-          #    memory: 256Mi
+          #    memory: 512Mi
           #  requests:
           #    cpu: 100m
           #    memory: 128Mi
