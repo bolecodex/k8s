@@ -1,4 +1,4 @@
-# Setup Kubernetes Cluster with VM and scripts
+# Setup Kubernetes Cluster with VMs and scripts
 
 ## Run in AWS Cloud9 
 ```
