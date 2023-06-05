@@ -56,5 +56,5 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc
 echo alias k=kubectl >> ~/.bashrc
 echo export do="--dry-run=client -o yaml" >> ~/.bashrc
 source ~/.bashrc
-echo PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
+PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ " >> ~/.bashrc
 ```
