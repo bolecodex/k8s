@@ -1,4 +1,4 @@
-# EC2-Minikube
+# Creating A Minikube Cluster using Terraform and AWS EC2
 
 ## Usage
 
