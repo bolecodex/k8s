@@ -1,4 +1,4 @@
-# Create lab environment
+# Setup Kubernetes Cluster with VM and scripts
 
 ## Run in AWS Cloud9 
 ```
