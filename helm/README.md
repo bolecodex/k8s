@@ -1,9 +1,16 @@
-# Demo 1: Installing the Helm Binary
+# Demo 1: Installing the Helm Binary and create a demo application
 ```
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
 helm version
+
+helm create demo
+helm install demo ./demo
+export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=demo,app.kubernetes.io/instance=demo" -o jsonpath="{.items[0].metadata.name}")
+export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+curl http://127.0.0.1:8080
 ```
 # Demo 2: Managing Helm Repositories
 ```
