@@ -7,7 +7,7 @@ helm version
 
 helm create demo
 helm install demo ./demo
-vi demo/{templates/{deployment,service,hpa},values,Chart}.yaml
+vim demo/{templates/{deployment,service,hpa},values,Chart}.yaml
 export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=demo,app.kubernetes.io/instance=demo" -o jsonpath="{.items[0].metadata.name}")
 export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
 kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
