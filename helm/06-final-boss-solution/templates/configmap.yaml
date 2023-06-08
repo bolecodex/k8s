@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-index-html-configmap
+data:
+  index.html: |
+{{ .Files.Get "nginx/content.html" | indent 4 }}
+  content.css: |
+{{ .Files.Get "nginx/content.css" | indent 4 }}

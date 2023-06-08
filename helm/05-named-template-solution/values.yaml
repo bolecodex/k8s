@@ -1,0 +1,9 @@
+a:
+  hpa:
+    name: myhpa
+    maxReplicas: 2
+    minReplicas: 1
+b:
+  hpa:
+    name: myotherhpa
+    maxReplicas: 11

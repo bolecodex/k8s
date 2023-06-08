@@ -1,0 +1,9 @@
+application:
+  name: my-hpa
+really:
+  nested:
+    hpa:
+      replicas:
+        min: 1
+        max: 2
+      cpu: 80

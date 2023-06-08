@@ -1,0 +1,31 @@
+# Deduplicate this template by making a template function to create hpa
+{{ $name:= $.Values.a.hpa.name }}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $name }}
+spec:
+  maxReplicas: 2
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: {{ $name }}
+  targetCPUUtilizationPercentage: 85
+
+---
+# This line above is for indicating we started a new resource
+
+{{ $name:= $.Values.b.hpa.name }}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $name }}
+spec:
+  maxReplicas: 2
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: {{ $name }}
+  targetCPUUtilizationPercentage: 85

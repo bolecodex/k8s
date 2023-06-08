@@ -1,0 +1,6 @@
+a:
+  hpa:
+    name: myhpa
+b:
+  hpa:
+    name: myotherhpa

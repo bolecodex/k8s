@@ -1,0 +1,4 @@
+image:
+  repository: aimvector/nodejs
+  tag: 1.0.0
+  containerPort: 5000
