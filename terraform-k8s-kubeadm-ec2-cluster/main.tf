@@ -137,7 +137,7 @@ resource "aws_instance" "ec2_instance_control_plane_node" {
 
   provisioner "remote-exec" {
     scripts = [
-      "./kubeadm-scripts/step-01-k8s-packages.sh",
+      "./kubeadm-scripts/step-01-k8s-packages-ubuntu.sh",
       "./kubeadm-scripts/step-02-k8s-cp-init.sh",
     ]
   }
