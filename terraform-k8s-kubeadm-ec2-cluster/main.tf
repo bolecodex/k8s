@@ -130,7 +130,7 @@ resource "aws_instance" "ec2_instance_control_plane_node" {
 
   connection {
     type        = "ssh"
-    user        = "ec2-user"
+    user        = "ubuntu"
     private_key = tls_private_key.rsa_key.private_key_openssh
     host        = self.public_ip
   }
@@ -143,7 +143,7 @@ resource "aws_instance" "ec2_instance_control_plane_node" {
   }
   provisioner "local-exec" {
     command = <<-EOT
-      join_cmd=$(ssh ec2-user@${self.public_ip} -o StrictHostKeyChecking=no -i ${local.pem_file} "kubeadm token create --print-join-command")
+      join_cmd=$(ssh ubuntu@${self.public_ip} -o StrictHostKeyChecking=no -i ${local.pem_file} "kubeadm token create --print-join-command")
       rm -rf ./kubeadm-scripts/step-03-k8s-join.sh
       echo "sudo $join_cmd"  > ./kubeadm-scripts/step-03-k8s-join.sh
     EOT
@@ -180,7 +180,7 @@ resource "aws_instance" "ec2_instance_worker_node" {
 
   connection {
     type        = "ssh"
-    user        = "ec2-user"
+    user        = "ubuntu"
     private_key = tls_private_key.rsa_key.private_key_openssh
     host        = self.public_ip
   }
