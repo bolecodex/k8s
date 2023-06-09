@@ -122,7 +122,7 @@ resource "aws_security_group_rule" "ec2_sg_worker_allow_cp_sg" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
 resource "aws_instance" "ec2_instance_control_plane_node" {
-  ami                    = var.ami_id
+  ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
   key_name               = aws_key_pair.ec2_key_pair.key_name
   vpc_security_group_ids = [aws_security_group.ec2_sg_control_plane.id]
