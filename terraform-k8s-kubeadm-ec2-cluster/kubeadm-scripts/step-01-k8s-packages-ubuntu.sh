@@ -1,72 +1,113 @@
-# STEP 1 - Prepare all nodes with Kubernetes Packages
-# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime
-# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
+#!/bin/bash
+# script that runs 
+# https://kubernetes.io/docs/setup/production-environment/container-runtime
 
-# Routine pkg update
-sudo yum update -y
+# changes March 14 2023: introduced $PLATFORM to have this work on amd64 as well as arm64
 
-# Disable swap. Mandatory in order for the kubelet to work properly
-sudo swapoff -a
-# And then to disable swap on startup
-sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+# setting MYOS variable
+MYOS=$(hostnamectl | awk '/Operating/ { print $3 }')
+OSVERSION=$(hostnamectl | awk '/Operating/ { print $4 }')
+# beta: building in ARM support
+[ $(arch) = aarch64 ] && PLATFORM=arm64
+[ $(arch) = x86_64 ] && PLATFORM=amd64
 
-# Setup Container Runtime
-# https://kubernetes.io/docs/setup/production-environment/container-runtimes/
-#
-# Starting with the prerequisites
-# Forwarding IPv4 and letting iptables see bridged traffic 
+if [ $MYOS = "Ubuntu" ]
+then
+	### setting up container runtime prereq
+	cat <<- EOF | sudo tee /etc/modules-load.d/containerd.conf
+	overlay
+	br_netfilter
+	EOF
 
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-overlay
-br_netfilter
+	sudo modprobe overlay
+	sudo modprobe br_netfilter
+
+	# Setup required sysctl params, these persist across reboots.
+	cat <<- EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+	net.bridge.bridge-nf-call-iptables  = 1
+	net.ipv4.ip_forward                 = 1
+	net.bridge.bridge-nf-call-ip6tables = 1
+	EOF
+
+	# Apply sysctl params without reboot
+	sudo sysctl --system
+
+	# (Install containerd)
+
+	sudo apt-get update && sudo apt-get install -y containerd
+	# hopefully temporary bugfix as the containerd version provided in Ubu repo is tool old
+	# added Jan 26th 2023
+	# this needs to be updated when a recent enough containerd version will be in Ubuntu repos
+	sudo systemctl stop containerd
+	# cleanup old files from previous attempt if existing
+	[ -d bin ] && rm -rf bin
+	wget https://github.com/containerd/containerd/releases/download/v1.6.15/containerd-1.6.15-linux-${PLATFORM}.tar.gz 
+	tar xvf containerd-1.6.15-linux-${PLATFORM}.tar.gz
+	sudo mv bin/* /usr/bin/
+	# Configure containerd
+	sudo mkdir -p /etc/containerd
+	cat <<- TOML | sudo tee /etc/containerd/config.toml
+version = 2
+[plugins]
+  [plugins."io.containerd.grpc.v1.cri"]
+    [plugins."io.containerd.grpc.v1.cri".containerd]
+      discard_unpacked_layers = true
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
+        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+          runtime_type = "io.containerd.runc.v2"
+          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+            SystemdCgroup = true
+	TOML
+
+	# Restart containerd
+	sudo systemctl restart containerd	
+fi
+
+#!/bin/bash
+# kubeadm installation instructions as on
+# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+# this script supports Ubuntu 20.04 LTS and later only
+# run this script with sudo
+
+if ! [ $USER = root ]
+then
+	echo run this script with sudo
+	exit 3
+fi
+
+# setting MYOS variable
+MYOS=$(hostnamectl | awk '/Operating/ { print $3 }')
+OSVERSION=$(hostnamectl | awk '/Operating/ { print $4 }')
+
+if [ $MYOS = "Ubuntu" ]
+then
+	echo RUNNING UBUNTU CONFIG
+	cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+	br_netfilter
+EOF
+	
+	sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+	cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+	deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 
-sudo modprobe overlay
-sudo modprobe br_netfilter
+	sudo apt-get update
+	sudo apt-get install -y kubelet kubeadm kubectl
+	sudo apt-mark hold kubelet kubeadm kubectl
+	swapoff -a
+	
+	sed -i 's/\/swap/#\/swap/' /etc/fstab
+fi
 
-# sysctl params required by setup, params persist across reboots
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-iptables  = 1
+# Set iptables bridging
+cat <<EOF >  /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
-net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-iptables = 1
 EOF
+sysctl --system
 
-# Apply sysctl params without reboot
-sudo sysctl --system
-
-# Container Runtime Setup - Install Containerd
-# https://github.com/containerd/containerd/blob/main/docs/getting-started.md
-
-# Install containerd
-sudo yum install -y containerd
-
-# Generate and save containerd configuration file to its standard location
-sudo containerd config default | sudo tee /etc/containerd/config.toml
-
-# Restart containerd to ensure new configuration file usage:
-sudo systemctl restart containerd
-
-# Verify containerd is running.
-sudo systemctl status containerd
-
-# Installing kubeadm, kubelet and kubectl 
-# Follow the Red Hat-based distributions setup tab in the page below
-# https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl
-
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-exclude=kubelet kubeadm kubectl
-EOF
-
-# Set SELinux in permissive mode (effectively disabling it)
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
-
-sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
-
-sudo systemctl enable --now kubelet
+sudo crictl config --set \
+    runtime-endpoint=unix:///run/containerd/containerd.sock
+echo 'after initializing the control node, follow instructions and use kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml to install the calico plugin (control node only). On the worker nodes, use sudo kubeadm join ... to join'
