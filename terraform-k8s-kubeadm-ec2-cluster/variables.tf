@@ -25,12 +25,6 @@ variable "worker_node_tags" {
   }
 }
 
-variable "ami_id" {
-  description = "AMI used for the EC2 instances"
-  type        = string
-  default     = "ami-0cff7528ff583bf9a"
-}
-
 variable "instance_type" {
   description = "EC2 instance type"
   type        = string
