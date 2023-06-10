@@ -3,7 +3,7 @@
 # Configure Security Group of control plane to allow all traffic
 # Run on control plane: 
 sudo apt install nfs-server -y
-mkdir /nfsexport
+sudo mkdir /nfsexport
 echo "/nfsexport *(rw,no_root_squash)" > /etc/exports
 sudo systemctl restart nfs-server
 showmount -e localhost
