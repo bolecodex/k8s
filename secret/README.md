@@ -11,7 +11,7 @@ kubectl get deploy mynewdb -o yaml | less
 ```
 kubectl create secret docker-registry my-docker-credentials --docker-username=unclebob --docker-password=mypw --docker-email=uncel@bob.com --docker-server=myregistry:5000
 kubectl get secret my-docker-credentials -o yaml
-kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+kubectl get secret my-docker-credentials --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
 ```
 ```
 apiVersion: v1
@@ -23,5 +23,5 @@ spec:
   - name: private-reg-container
     image: <your-private-image>
   imagePullSecrets:
-  - name: regcred
+  - name: my-docker-credentials
 ```
