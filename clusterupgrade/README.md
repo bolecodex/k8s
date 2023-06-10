@@ -1,7 +1,4 @@
-
-##
-
-> Cluster upgrade
+# Demo: Cluster upgrade
 
 1. apt update
 
@@ -19,11 +16,11 @@ sudo apt-cache madison kubeadm
 
 ##
 
-3.kubeadm hold removed, installed with version 1.25.1
+3.kubeadm hold removed, installed with version 1.27.0
 
 ```
 sudo apt-mark unhold kubeadm
-sudo apt-get install -y kubeadm=1.25.1-00
+sudo apt-get install -y kubeadm=1.27.0-00
 ```
 
 ##
@@ -47,7 +44,8 @@ sudo kubeadm version
 6. Remove scheduling (pod deployment) functionality to cp nodes, (to update cp nodes, you must first remove as many pods as possible).
 
 ```
-kubectl drain cp --ignore-daemonsets
+kubectl drain <node-to-drain> --ignore-daemonsets
+# you can run "kubectl get nodes" to ge the node name <node-to-drain> 
 ```
 
 ##
