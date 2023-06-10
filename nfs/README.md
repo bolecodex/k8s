@@ -4,7 +4,8 @@
 # Run on control plane: 
 sudo apt install nfs-server -y
 sudo mkdir /nfsexport
-echo "/nfsexport *(rw,no_root_squash)" > /etc/exports
+sudo vim /etc/exports
+# Add line: /nfsexport *(rw,no_root_squash)
 sudo systemctl restart nfs-server
 showmount -e localhost
 # -------------------
