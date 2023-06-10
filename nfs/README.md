@@ -1,6 +1,6 @@
 # Demo: Configuring a Storage Provisioner
 ```
-# Configure Security Group of control plane to allow all traffic
+# Configure Security Group to allow all traffic
 # Run on control plane: 
 sudo apt install nfs-server -y
 sudo mkdir /nfsexport
@@ -11,7 +11,7 @@ showmount -e localhost
 # -------------------
 # Run on worker nodes:
 sudo apt install nfs-client 
-showmount -e <private IP address of control plane node> # Remember to allow traffic in control plane first by changing the security grouo in cp
+showmount -e <private IP address of control plane node> # Remember to allow traffic first by changing the security group
 # -------------------
 # Install helm
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
