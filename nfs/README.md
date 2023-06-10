@@ -28,7 +28,8 @@ helm version
 ## 5. Add helm repo and install the package
 ```
 helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
-helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --set nfs.server=172.31.10.75 --set nfs.path=/nfsexport -n kube-system 
+# Remember to replace the <private IP address of control plane node> 
+helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --set nfs.server=<private IP address of control plane node>  --set nfs.path=/nfsexport -n kube-system 
 ```
 ## 6. Verify the PVC is created and bound to an automatically created PV
 ```
