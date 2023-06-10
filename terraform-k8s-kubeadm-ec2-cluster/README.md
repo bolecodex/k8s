@@ -23,7 +23,7 @@ PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%
 ```
 cd k8s/setup-kubernetes-cluster
 terraform destroy --auto-approve
-# Wait for around 2 minutes
+# Wait for around 3 minutes
 ```
 
 For CentOs version, please refer to code repo of the **[The AWS Way — IaC in Action — Creating A Kubernetes Cluster with Kubeadm using Terraform and AWS EC2](https://jdluther.medium.com/the-aws-way-iac-in-action-creating-a-kubernetes-cluster-with-kubeadm-using-terraform-and-aws-8227203e000e)** blog.
