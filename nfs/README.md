@@ -44,7 +44,6 @@ kubectl get pvc,pv
 ls /nfsexport/
 ```
 ```
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
