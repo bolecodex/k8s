@@ -7,7 +7,7 @@ terraform init
 terraform apply --auto-approve
 # Wait for around 4 minutes
 ```
-## ssh into the control plane and worker node
+## SSH into the control plane and worker node
 ```
 cd k8s/terraform-k8s-kubeadm-ec2-cluster
 ssh -i ./k8s-kp.pem ubuntu@ec2-<ip-address>.compute-1.amazonaws.com
@@ -22,6 +22,11 @@ echo export do="--dry-run=client -o yaml" >> ~/.bashrc
 source ~/.bashrc
 PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
 # rm -rf * # Optional
+```
+
+## Use SSH Tools
+```
+# Download and install WindTerm https://github.com/kingToolbox/WindTerm
 ```
 
 ## Cleanup
