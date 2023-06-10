@@ -7,6 +7,11 @@ terraform init
 terraform apply --auto-approve
 # Wait for around 4 minutes
 ```
+## ssh into the control plane and worker node
+```
+cd k8s/terraform-k8s-kubeadm-ec2-cluster
+ssh -i ./k8s-kp.pem ubuntu@ec2-<ip-address>.compute-1.amazonaws.com
+```
 
 ## Add auto-completion and shortcuts
 ```
