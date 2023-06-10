@@ -16,7 +16,7 @@ ssh -i ./k8s-kp.pem ubuntu@ec2-<ip-address>.compute-1.amazonaws.com
 ```
 # Download and install WindTerm https://github.com/kingToolbox/WindTerm
 ```
-## Add auto-completion and shortcuts
+## Add auto-completion and shortcuts in control plain nodes
 ```
 source <(kubectl completion bash)
 echo "source <(kubectl completion bash)" >> ~/.bashrc
@@ -26,7 +26,7 @@ source ~/.bashrc
 PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
 # rm -rf * # Optional
 ```
-## Cleanup
+## Cleanup in AWS Cloud9
 ```
 cd k8s/terraform-k8s-kubeadm-ec2-cluster
 terraform destroy --auto-approve
