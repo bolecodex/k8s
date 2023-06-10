@@ -21,7 +21,7 @@ PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%
 
 ## Cleanup
 ```
-cd k8s/setup-kubernetes-cluster
+cd k8s/terraform-k8s-kubeadm-ec2-cluster
 terraform destroy --auto-approve
 # Wait for around 3 minutes
 ```
