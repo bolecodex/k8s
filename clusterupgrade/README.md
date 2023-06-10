@@ -16,7 +16,7 @@ sudo apt-cache madison kubeadm
 
 ##
 
-3.kubeadm hold removed, installed with version 1.27.0
+3. kubeadm hold removed, installed with version 1.27.0
 
 ```
 sudo apt-mark unhold kubeadm
@@ -25,7 +25,7 @@ sudo apt-get install -y kubeadm=1.27.0-00
 
 ##
 
-4. hold kubeadm again
+4. Hold kubeadm again
 
 ```
 sudo apt-mark hold kubeadm
@@ -41,16 +41,16 @@ sudo kubeadm version
 
 ##
 
-6. Remove scheduling (pod deployment) functionality to cp nodes, (to update cp nodes, you must first remove as many pods as possible).
+6. Remove scheduling (pod deployment) functionality to control plane nodes, (to update cp nodes, you must first remove as many pods as possible).
 
 ```
-kubectl drain <node-to-drain> --ignore-daemonsets
-# you can run "kubectl get nodes" to ge the node name <node-to-drain> 
+kubectl drain <control-plane-name> --ignore-daemonsets
+# you can run "kubectl get nodes" to ge the node name
 ```
 
 ##
 
-7.kubeadm Check upgrade plan
+7. Check kubeadm upgrade plan
 
 ```
 sudo kubeadm upgrade plan
@@ -61,7 +61,7 @@ sudo kubeadm upgrade plan
 8. Run kubeadm upgrade (enter y when prompted to continue upgrading)
 
 ```
-sudo kubeadm upgrade apply v1.25.1
+sudo kubeadm upgrade apply v1.27.0
 ```
 
 ##
@@ -74,7 +74,7 @@ kubectl get nodes
 
 ##
 
-10.kubelet, kubectl 언포드
+10. Unhold kubelet, kubectl 
 
 ```
 sudo apt-get unhold kubelet kubectl
@@ -82,15 +82,15 @@ sudo apt-get unhold kubelet kubectl
 
 ##
 
-11.Install kubelet and kubectl according to the kubeadm version
+11. Install kubelet and kubectl according to the kubeadm version
 
 ```
-sudo apt-get install -y cube=1.25.1-00 cubectl=1.25.1-00
+sudo apt-get update && sudo apt-get install -y kubelet=1.27.0-00 kubectl=1.27.0-00
 ```
 
 ##
 
-12. kubelet, kubectl hold
+12. Hold kubelet, kubectl 
 
 ```
 sudo apt-get mark hold kubelet kubectl
@@ -129,13 +129,13 @@ kubectl uncordon cp
 kubectl get nodes
 ```
 
-##
+## 
 
-17. Remove kubeadm hold from Worker node, install with version 1.24.1
+17. Run in worker node
 
 ```
 sudo apt-mark unhold kubeadm
-sudo apt-get install -y kubeadm=1.25.1-00
+sudo apt-get install -y kubeadm=1.27.0-00
 ```
 
 ##
@@ -148,15 +148,15 @@ sudo apt-mark hold kubeadm
 
 ##
 
-19. Add option to ignore daemonset from CP node to worker node
+19. Add option to ignore daemonset from CP node to worker node (Run this command in control plane)
 
 ```
-kubectl drain worker --ignore-daemonsets
+kubectl drain <worker-node-name> --ignore-daemonsets
 ```
 
 ##
 
-20.Upgrade on worker node
+20. Upgrade on worker node
 
 ```
 sudo kubeadm upgrade node
@@ -164,7 +164,7 @@ sudo kubeadm upgrade node
 
 ##
 
-21. kubelet, kubectl 언포드
+21. Unholdd kubelet, kubectl 
 
 ```
 sudo apt-get unhold kubelet kubectl
@@ -172,10 +172,10 @@ sudo apt-get unhold kubelet kubectl
 
 ##
 
-22.Install kubelet and kubectl according to the kubeadm version
+22. Install kubelet and kubectl according to the kubeadm version
 
 ```
-sudo apt-get install -y cube=1.25.1-00 cubectl=1.25.1-00
+sudo apt-get install -y cube=1.27.0-00 cubectl=1.27.0-00
 ```
 
 ##
@@ -208,12 +208,12 @@ kubectl get nodes
 26. Set the scheduler to use the worker again
 
 ```
-kubectl uncordon worker
+kubectl uncordon <worker-node-name>
 ```
 
 ##
 
-27.Check node's Ready status and version
+27. Check node's Ready status and version
 
 ```
 kubectl get nodes
