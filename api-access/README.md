@@ -112,7 +112,7 @@ kubectl get pods
 ```
 
 
-#Exercise 5.2
+# Exercise 5.2
 
 
 1. Strace installation (debugging tool used to trace system calls and signals to check if there are any parts that cause performance degradation or errors)
