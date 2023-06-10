@@ -66,7 +66,7 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    path: /storage
+    path: /nfsexport
     server: <private IP address of control plane node> 
     readOnly: false
 ---
