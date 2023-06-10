@@ -25,10 +25,16 @@ variable "worker_node_tags" {
   }
 }
 
-variable "instance_type" {
+variable "cp_instance_type" {
   description = "EC2 instance type"
   type        = string
-  default     = "t3.medium"
+  default     = "t3.small"
+}
+
+variable "worker_instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t2.micro"
 }
 
 variable "sg_worker_node_tags" {
