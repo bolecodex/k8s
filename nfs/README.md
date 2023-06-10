@@ -11,7 +11,7 @@ showmount -e localhost
 # -------------------
 # Run on worker nodes:
 sudo apt install nfs-client 
-showmount -e <private IP address of control plane node>
+showmount -e <private IP address of control plane node> # Remember to allow traffic in control plane first by changing the security grouo in cp
 # -------------------
 # Install helm
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
