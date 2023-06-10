@@ -2,7 +2,7 @@
 ## Run in AWS Cloud9 
 ```
 git clone https://github.com/bolecodex/k8s.git
-cd k8s/setup-kubernetes-cluster
+cd k8s/terraform-k8s-kubeadm-ec2-cluster
 terraform init
 terraform apply --auto-approve
 # Wait for around 4 minutes
