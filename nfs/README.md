@@ -49,6 +49,7 @@ apiVersion: v1
 metadata:
   name: nfs-pv-claim
 spec:
+  storageClassName: nfs-client
   accessModes:
     - ReadWriteOnce
   resources:
