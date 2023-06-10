@@ -12,7 +12,10 @@ terraform apply --auto-approve
 cd k8s/terraform-k8s-kubeadm-ec2-cluster
 ssh -i ./k8s-kp.pem ubuntu@ec2-<ip-address>.compute-1.amazonaws.com
 ```
-
+## Use SSH Tools
+```
+# Download and install WindTerm https://github.com/kingToolbox/WindTerm
+```
 ## Add auto-completion and shortcuts
 ```
 source <(kubectl completion bash)
@@ -23,12 +26,6 @@ source ~/.bashrc
 PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
 # rm -rf * # Optional
 ```
-
-## Use SSH Tools
-```
-# Download and install WindTerm https://github.com/kingToolbox/WindTerm
-```
-
 ## Cleanup
 ```
 cd k8s/terraform-k8s-kubeadm-ec2-cluster
