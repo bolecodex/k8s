@@ -95,7 +95,7 @@ EOF
 
 	sudo apt-get update
 	sudo apt-get install -y kubelet kubeadm kubectl
-	sudo apt-get install -y kubelet=1.26.0-00 kubeadm=1.26.0-00 kubectl=1.26.0-00
+	# sudo apt-get install -y kubelet=1.26.0-00 kubeadm=1.26.0-00 kubectl=1.26.0-00
 	sudo apt-mark hold kubelet kubeadm kubectl
 	sudo swapoff -a
 	
