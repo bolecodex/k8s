@@ -12,7 +12,7 @@ sudo systemctl restart nfs-server
 showmount -e localhost
 ```
 
-## 3. Run on worker nodes rto install nfs client
+## 3. Run on worker nodes to install nfs client
 ```
 sudo apt install nfs-client 
 showmount -e <private IP address of control plane node> 
