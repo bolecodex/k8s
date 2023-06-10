@@ -8,5 +8,15 @@ terraform apply --auto-approve
 # Wait for around 4 minutes
 ```
 
+## Add auto-completion and shortcuts
+```
+source <(kubectl completion bash)
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+echo alias k=kubectl >> ~/.bashrc
+echo export do="--dry-run=client -o yaml" >> ~/.bashrc
+source ~/.bashrc
+PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
+```
+
 For CentOs version, please refer to code repo of the **[The AWS Way — IaC in Action — Creating A Kubernetes Cluster with Kubeadm using Terraform and AWS EC2](https://jdluther.medium.com/the-aws-way-iac-in-action-creating-a-kubernetes-cluster-with-kubeadm-using-terraform-and-aws-8227203e000e)** blog.
 
