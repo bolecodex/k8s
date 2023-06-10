@@ -16,7 +16,7 @@ provider "aws" {
 
 # Defile any local vars
 locals {
-  pem_file     = "~/.ssh/k8s-kp.pem"
+  pem_file     = "./k8s-kp.pem"
   key_name     = "k8s-kp"
 }
 
