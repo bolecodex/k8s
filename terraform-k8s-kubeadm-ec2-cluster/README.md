@@ -27,7 +27,7 @@ PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%
 
 # press Esc to exit insert mode, type :wq and the press enter
 source ~/.bashrc
-# rm -rf * # Optional
+# rm -rf * # Optional: remove unnecessary files in home directory
 ```
 ## Cleanup in AWS Cloud9
 ```
