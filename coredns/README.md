@@ -1,7 +1,7 @@
 # Exercise
 
 
-1. Pod Creation
+1. Pod creation
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: v1
@@ -61,7 +61,7 @@ curl service-lab.accounting.svc.cluster.local.
 
 ##
 
-8.Curl only with Service name (failed because nettool is only in Default)
+8. Curl only with Service name (failed because nettool is only in Default)
 ```
 curl service-lab
 ```
@@ -82,7 +82,7 @@ exit
 
 ##
 
-11.Check the service running in kube-system NS
+11. Check the service running in kube-system NS
 ```
 kubectl -n kube-system get svc
 ```
@@ -111,7 +111,7 @@ Confirm that configuration comes from Configmap
 
 ##
 
-15.Check the configmap in kube-system NS
+15. Check the configmap in kube-system NS
 ```
 kubectl -n kube-system get configmap
 ```
@@ -163,14 +163,14 @@ EOF
 
 ##
 
-18.Delete the coredns Pod to configure redeployment
+18. Delete the coredns Pod to configure redeployment
 ```
 kubectl -n kube-system delete pod <coredns pod name> <other coredns pod name>
 ```
 
 ##
 
-19.Deployment creation and service creation
+19. Deployment creation and service creation
 ```
 kubectl create deployment nginx --image=nginx
 kubectl expose deployment nginx --type=ClusterIP --port=80
@@ -178,7 +178,7 @@ kubectl expose deployment nginx --type=ClusterIP --port=80
 
 ##
 
-20.Check the created service
+20. Check the created service
 ```
 kubectl get svc
 ```
@@ -213,7 +213,7 @@ dig nginx.test.io
 
 ##
 
-25.pod connection termination
+25. pod connection termination
 ```
 exit
 ```
@@ -259,21 +259,21 @@ EOF
 
 ##
 
-27.Configure redeployment by deleting the pod
+27. Configure redeployment by deleting the pod
 ```
 kubectl -n kube-system delete pod <coredns pod name> <other corends pod name>
 ```
 
 ##
 
-28.Connect to Pod again
+28. Connect to Pod again
 ```
 kubectl exec -it alpine -- /bin/bash
 ```
 
 ##
 
-29.test.io test
+29. test.io test
 ```
 dig nginx.test.io
 ```
@@ -287,7 +287,7 @@ exit
 
 ##
 
-31.Delete the alpine pod
+31. Delete the alpine pod
 ```
 kubectl delete pod alpine
 ```
