@@ -17,12 +17,9 @@ curl -XDELETE http://localhost:8001/api/v1/namespaces/default/pods/curlnginx-xxx
 
 ```
 less $HOME/.kube/config
+# Use arrow down key or enter to check the file
+# When finished, press q to exit less.
 ```
-
-Use arrow down key or enter to check the file
-
-When finished, press q to exit less.
-
 ##
 
 2. Save the certificate information as a variable and confirm the variable save
