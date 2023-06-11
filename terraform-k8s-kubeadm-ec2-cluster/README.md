@@ -21,7 +21,7 @@ ssh -i ./k8s-kp.pem ubuntu@ec2-<ip-address>.compute-1.amazonaws.com
 vim ~/.bashrc
 # Press Shift + g to go to the bottom of file, press o to enter insert mode. Copy the following four lines. 
 source <(kubectl completion bash)
-alias k=kubectl=
+alias k=kubectl
 export do="--dry-run=client -o yaml"
 PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
 
