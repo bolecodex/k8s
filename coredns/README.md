@@ -1,7 +1,7 @@
-# Exercise 9.3
+# Exercise
 
 
-1.Pod Creation
+1. Pod Creation
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: v1
