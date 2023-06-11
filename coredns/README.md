@@ -96,7 +96,7 @@ kubectl -n kube-system get svc kube-dns -o yaml
 
 ##
 
-13.Output pod with label k8s-app on all NS
+13. Output pod with label k8s-app on all NS
 ```
 kubectl get pod -l k8s-app --all-namespaces
 ```
