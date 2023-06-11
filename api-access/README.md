@@ -56,13 +56,13 @@ kubectl config view |grep server
 5. https access using curl (output pods information to API server)
 
 ```
+# --cert <certificate[:password]> Client certificate file and password
+# --key <key> Private key file name
+# --cacert <file> CA certificate to verify peer against
 curl --cert ./client.pem \
 --key ./client-key.pem \
 --cacert ./ca.pem \
 https://<API server IP from step 4>:6443/api/v1/pods
-# --cert <certificate[:password]> Client certificate file and password
-# --key <key> Private key file name
-# --cacert <file> CA certificate to verify peer against
 ```
 
 ##
