@@ -19,7 +19,7 @@ ssh -i ./k8s-kp.pem ubuntu@ec2-<ip-address>.compute-1.amazonaws.com
 ## Add auto-completion and shortcuts in control plain nodes
 ```
 vim ~/.bashrc
-# Press Shift + g to go to the bottom of file, press i to enter insert mode. Copy the following four lines. 
+# Press Shift + g to go to the bottom of file, press o to enter insert mode. Copy the following four lines. 
 source <(kubectl completion bash)
 alias k=kubectl=
 export do="--dry-run=client -o yaml"
