@@ -122,7 +122,7 @@ sudo apt-get install -y strace
 
 ##
 
-2.ep check command
+2. ep check command
 ```
 kubectl get endpoints
 strace kubectl get endpoints
@@ -170,7 +170,7 @@ kubectl get ep
 
 ##
 
-8.kind count check
+8. kind count check
 ```
 python3 -m json.tool v1/serverresources.json | grep kind
 ```
