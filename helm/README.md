@@ -122,56 +122,49 @@ kubectl get svc
 
 ##
 
-10. Curl communication with the above service
-```
-curl <above svc ip>
-```
-
-##
-
-11. Check the helm chart record
+10. Check the helm chart record
 ```
 helm list
 ```
 
 ##
 
-12. Delete tester tool
+11 Delete tester tool
 ```
 helm uninstall tester
 ```
 
 ##
 
-13. Recheck the helm chart record
+12. Recheck the helm chart record
 ```
 helm list
 ```
 
 ##
 
-14. Search the list of downloaded charts
+13. Search the list of downloaded charts
 ```
 find $HOME -name *echo*
 ```
 
 ##
 
-15. Go to that directory and unzip
+14. Go to that directory and unzip
 ```
 cd $HOME/.cache/helm/repository ; tar -xvf echo-server-*
 ```
 
 ##
 
-16. Check the echo-server/values.yaml file
+15. Check the echo-server/values.yaml file
 ```
 cat echo-server/values.yaml
 ```
 
 ##
 
-17. Add bitnami apache repository, download chart
+16. Add bitnami apache repository, download chart
 ```
 cd
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -187,63 +180,56 @@ cd apache/
 
 ##
 
-18. Check values.yaml
+17. Check values.yaml
 ```
 cat values.yaml
 ```
 
 ##
 
-19. Chart Installation
+18. Chart Installation
 ```
 helm install anotherweb .
 ```
 
 ##
 
-20. Check the created resource
+19. Check the created resource
 ```
 kubectl get all
 ```
 
 ##
 
-21. Curl to the generated SVC IP
-```
-curl $(kubectl get svc anotherweb-apache -o=jsonpath='{.spec.clusterIP}')
-```
-
-##
-
-22. Deploy by specifying the type of svc as clusterIP
+20. Deploy by specifying the type of svc as clusterIP
 ```
 helm upgrade anotherweb . --set service.type=ClusterIP
 ```
 
 ##
 
-23. Check if svc type has changed
+21. Check if svc type has changed
 ```
 kubectl get svc anotherweb-apache
 ```
 
 ##
 
-24. Check the list of installed charts
+22. Check the list of installed charts
 ```
 helm list
 ```
 
 ##
 
-25. Delete anotherweb chart
+23. Delete anotherweb chart
 ```
 helm uninstall anotherweb
 ```
 
 ##
 
-26. Check Pod, svc again
+24. Check Pod, svc again
 ```
 kubectl get all
 ```
