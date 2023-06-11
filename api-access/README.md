@@ -63,6 +63,9 @@ curl --cert ./client.pem \
 --key ./client-key.pem \
 --cacert ./ca.pem \
 https://k8scp:6443/api/v1/pods
+# --cert <certificate[:password]> Client certificate file and password
+# --key <key> Private key file name
+# --cacert <file> CA certificate to verify peer against
 ```
 
 ##
