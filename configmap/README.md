@@ -161,7 +161,7 @@ kubectl exec shell-demo -- /bin/bash -c 'env'
 
 ##
 
-10. Pod Delete
+10. Delete Pod
 ```
 kubectl delete pod shell-demo
 ```
