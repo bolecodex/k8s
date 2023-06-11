@@ -102,13 +102,13 @@ EOF
 ```
 curl \
 --cert ./client.pem --key ./client-key.pem --cacert ./ca.pem \
-https://k8scp:6443/api/v1/namespaces/default/pods\
+https://k8scp:6443/api/v1/namespaces/default/pods \
 -XPOST -H'Content-Type: application/json' -d@curlpod.json
 ```
 
 ##
 
-8.pod check
+8. pod check
 
 ```
 kubectl get pods
