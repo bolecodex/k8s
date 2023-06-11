@@ -11,7 +11,7 @@ curl http://localhost:8001/api/v1/namespaces/default/pods/curlnginx-xxx-yyy/ # s
 curl -XDELETE http://localhost:8001/api/v1/namespaces/default/pods/curlnginx-xxx-yyy # will delete the httpd Pod
 ```
 
-# Exercise 5.1 - Configuring TLS Access
+# Exercise 1 - Configuring TLS Access
 
 1.kubectl review (check 3 certificates, API server address)
 
@@ -112,7 +112,7 @@ kubectl get pods
 ```
 
 
-# Exercise 5.2
+# Exercise 2
 
 
 1. Strace installation (debugging tool used to trace system calls and signals to check if there are any parts that cause performance degradation or errors)
