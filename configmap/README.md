@@ -59,10 +59,10 @@ kubectl get svc myweb
 curl <cluster-ip>
 ```
 
-# Exercise 8.1
+# Exercise
 
 
-1.Create a directory and create a file to use for practice
+1. Create a directory and create a file to use for practice
 ```
 mkdir primary
 echo c > primary/cyan
@@ -75,7 +75,7 @@ echo blue > favorite
 
 ##
 
-2.Create configmap
+2. Create configmap
 ```
 kubectl create configmap colors \
 --from-literal=text=black \
@@ -92,7 +92,7 @@ kubectl get configmap colors
 
 ##
 
-Output in 4.yaml format
+4. Output in yaml format
 ```
 kubectl get configmap colors -o yaml
 ```
@@ -168,7 +168,7 @@ kubectl delete pod shell-demo
 
 ##
 
-11.Create a Configmap with the command below
+11. Create a Configmap with the command below
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: v1
@@ -185,7 +185,7 @@ EOF
 
 ##
 
-Check in 12.yaml format
+12. Check in yaml format
 ```
 kubectl get cm fast-car -o yaml
 ```
@@ -229,7 +229,7 @@ kubectl exec shell-demo -- /bin/bash -c 'cat /etc/cars/car.trim; echo'
 
 ##
 
-16.Pod, delete configmap
+16. Pod, delete configmap
 ```
 kubectl delete pod shell-demo
 kubectl delete cm fast-car colors
