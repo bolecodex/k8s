@@ -19,7 +19,7 @@ curl -XDELETE http://localhost:8001/api/v1/namespaces/default/pods/curlnginx-xxx
 less $HOME/.kube/config
 ```
 
-Arrow down key, space bar input to check the file
+Use arrow down key or enter to check the file
 
 When finished, press q to exit less.
 
