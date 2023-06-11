@@ -25,7 +25,7 @@ alias k=kubectl=
 export do="--dry-run=client -o yaml"
 PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
 
-# press esc to exit insert mode, type :wq and the press enter
+# press Esc to exit insert mode, type :wq and the press enter
 source ~/.bashrc
 # rm -rf * # Optional
 ```
