@@ -80,7 +80,7 @@ sudo cp linux-amd64/helm /usr/local/bin/helm
 
 ##
 
-4.Search the database keyword chart in Helm Hub
+4 .Search the database keyword chart in Helm Hub
 ```
 helm search hub database
 ```
