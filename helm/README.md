@@ -17,6 +17,18 @@ curl http://127.0.0.1:8080
 vim demo/{templates/{deployment,service,hpa},values,Chart}.yaml
 # template package - text/template - Go Packages
 # https://pkg.go.dev/text/template
+vim demo/values.yaml
+# repository: nginxdemos/hello
+# tag: "latest"
+vim demo/Chart.yaml
+# version: 0.1.1
+# appVersion: ""
+helm upgrade demo ./demo
+helm list
+helm history demo
+helm rollback demo
+helm history demo
+helm rollback demo
 ```
 # Demo 2: Managing Helm Repositories
 ```
