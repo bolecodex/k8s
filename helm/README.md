@@ -7,12 +7,12 @@ helm version
 
 helm create demo
 helm install demo ./demo
-vim demo/{templates/{deployment,service,hpa},values,Chart}.yaml
 export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=demo,app.kubernetes.io/instance=demo" -o jsonpath="{.items[0].metadata.name}")
 export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
 kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
 curl http://127.0.0.1:8080
 # If you later want to kill the process currently on port 8080: netstat -tulpen | grep 8080 shoud show which process that is, kill -9 <PID> allows you to kill it.
+vim demo/{templates/{deployment,service,hpa},values,Chart}.yaml
 ```
 # Demo 2: Managing Helm Repositories
 ```
