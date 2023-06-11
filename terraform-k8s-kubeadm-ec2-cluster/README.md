@@ -18,12 +18,15 @@ ssh -i ./k8s-kp.pem ubuntu@ec2-<ip-address>.compute-1.amazonaws.com
 ```
 ## Add auto-completion and shortcuts in control plain nodes
 ```
+vim ~/.bashrc
+# Press Shift + G to go to the bottom of file, press i to enter insert mode. Copy the following four lines. 
 source <(kubectl completion bash)
-echo "source <(kubectl completion bash)" >> ~/.bashrc
-echo alias k=kubectl >> ~/.bashrc
-source ~/.bashrc
+alias k=kubectl=
 export do="--dry-run=client -o yaml"
 PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
+
+# press esc to exit insert mode, type :wq and the press enter
+source ~/.bashrc
 # rm -rf * # Optional
 ```
 ## Cleanup in AWS Cloud9
