@@ -102,7 +102,7 @@ EOF
 ```
 curl \
 --cert ./client.pem --key ./client-key.pem --cacert ./ca.pem \
-https://k8scp:6443/api/v1/namespaces/default/pods \
+https://<API server IP from step 4>:6443/api/v1/namespaces/default/pods \
 -XPOST -H'Content-Type: application/json' -d@curlpod.json
 ```
 
