@@ -56,7 +56,7 @@ helm template --debug nginx
 helm install -f nginx/values.yaml my-nginx nginx/\
 helm delete my-nginx
 ```
-# Exercise 10.1
+# Exercise
 
 
 1. Download helm with wget
