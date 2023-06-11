@@ -132,7 +132,7 @@ strace kubectl get endpoints
 
 3. Move directory
 ```
-cd /home/ubuntu/.kube/cache/discovery/k8scp_6443
+cd /home/ubuntu/.kube/cache/discovery/<API server IP>_6443
 ls
 ```
 
@@ -140,7 +140,7 @@ ls
 
 4. Confirm with the find command
 ```
-find.
+find .
 ```
 
 ##
