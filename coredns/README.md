@@ -21,7 +21,7 @@ EOF
 
 2. Connect to Pod
 ```
-kubectl exec -it ubuntu -- /bin/bash
+kubectl exec -it free -- /bin/bash
 ```
 
 ##
