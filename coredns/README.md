@@ -1,4 +1,4 @@
-# Exercise
+# Exercise 9.4
 
 
 1. Pod creation
@@ -7,11 +7,11 @@ cat <<EOF | kubectl create -f -
 apiVersion: v1
 kind: Pod
 metadata:
-  name: free
+  name: alpine
 spec:
   containers:
-  - name: free
-    image: ubuntu:latest
+  - name: alpine
+    image: alpine:latest
     command: [ "sleep" ]
     args: [ "infinity" ]
 EOF
@@ -21,7 +21,7 @@ EOF
 
 2. Connect to Pod
 ```
-kubectl exec -it free -- /bin/bash
+kubectl exec -it alpine -- /bin/bash
 ```
 
 ##
