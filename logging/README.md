@@ -7,7 +7,7 @@ Add a sidecar container to this pod, that runs nginx and mounts the shared volum
 
 Expose the Pod in such a way that users can access the file presented by the Nginx webserver by addressing a port that is externally exposed on your Kubernetes nodes
 
-# Exercise 13.1
+# Exercise 1
 
 
 1. Check the kubelet log
@@ -17,7 +17,7 @@ journalctl -u kubelet |less
 
 ##
 
-2.Check API server log location
+2. Check API server log location
 ```
 sudo find / -name "*apiserver*log"
 ```
@@ -44,7 +44,7 @@ sudo ls /var/log/pods/
 ```
 
 
-# Exercise 13.2
+# Exercise 2
 
 
 1. Check all currently deployed Pods
@@ -54,7 +54,7 @@ kubectl get po --all-namespaces
 
 ##
 
-2.Check API server log
+2. Check API server log
 ```
 kubectl -n kube system logs kube apiserver-cp
 ```
