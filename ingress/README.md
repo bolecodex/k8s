@@ -32,7 +32,7 @@ Use Ingress to make the deployment accessible on the virtual host accessgninx.in
 Configure /etc/hosts on all nodes involved to ensure that Ingress access will work
 ```
 
-# Exercise 1
+# Exercise 1 (Optional)
 
 
 1. Linkerd installation
