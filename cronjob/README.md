@@ -18,7 +18,7 @@ kind: CronJob
 metadata:
   name: sleepy
 spec:
-  schedule: "*/2 * * * *"
+  schedule: "*/2 * * * *" # https://crontab.guru/
   jobTemplate:
     spec:
       template:
