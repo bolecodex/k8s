@@ -8,7 +8,7 @@ kubectl create -f crd-backup.yaml
 kubectl get backups
 ```
 
-# Exercise 14.1
+# Exercise
 
 1. Check the cluster's CRD
 ```
