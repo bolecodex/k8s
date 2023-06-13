@@ -51,7 +51,7 @@ kubectl get job sleepy -o yaml
 
 ##
 
-4. Delete the job after a certain amount of time has elapsed and the status of the job is Completed
+4. Delete the job after a certain amount of time has elapsed and the status of the job is completed
 ```
 kubectl delete job sleepy
 ```
