@@ -41,6 +41,7 @@ curl --proto '=https' --tlsv1.2 -sSfL https://run.linkerd.io/install | sh
 export PATH=$PATH:/home/ubuntu/.linkerd2/bin
 echo "export PATH=$PATH:/home/ubuntu/.linkerd2/bin" >> $HOME/.bashrc
 linkerd check --pre
+linkerd install --crds | kubectl apply -f -
 linkerd install | kubectl apply -f -
 linkerd check
 linkerd viz install --set dashboard.enforcedHostRegexp=" " | kubectl apply -f -
