@@ -17,9 +17,9 @@ kubectl get crd --all-namespaces
 
 ##
 
-2. Check Calico yaml
+2. Check Calico crd
 ```
-less ~/calico.yaml
+kubectl get crd caliconodestatuses.crd.projectcalico.org -o yaml | less
 ```
 
 ##
