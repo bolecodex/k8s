@@ -56,7 +56,7 @@ kubectl get po --all-namespaces
 
 2. Check API server log
 ```
-kubectl -n kube system logs kube apiserver-cp
+kubectl -n kube-system logs kube-apiserver-<control plane name>
 ```
 
 ##
