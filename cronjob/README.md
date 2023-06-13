@@ -8,8 +8,6 @@ kubectl delete cronjob runme
 ```
 # Exercise
 
-##
-
 >cronjob
 
 1. Create a cronjob
