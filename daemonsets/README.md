@@ -7,10 +7,10 @@ kubectl create -f daemondemo.yaml
 kubectl get daemonset
 ```
 
-# Exercise 7.2
+# Exercise 1
 
 
-1.Daemonset creation
+1. Daemonset creation
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: apps/v1
@@ -36,7 +36,7 @@ EOF
 
 ##
 
-2.Deamonset deployment check
+2. Deamonset deployment check
 ```
 kubectl get ds
 kubectl get pod
@@ -50,7 +50,7 @@ kubectl describe pod <pod name from above> | grep Image:
 ```
 
 
-# Exercise 7.3
+# Exercise 2
 
 
 1. Check Daemonset's Update method created in the previous section
@@ -89,7 +89,7 @@ kubectl describe pod <pod name from previous section> | grep Image:
 
 ##
 
-5.Delete the pod and check the image of the redeployed pod
+5. Delete the pod and check the image of the redeployed pod
 ```
 kubectl delete pod <the Pod Name from the previous section>
 ```
@@ -123,14 +123,14 @@ kubectl rollout history ds ds-one --revision=2
 
 ##
 
-Rollback to previous version via 9.undo command
+9. Rollback to previous version via undo command
 ```
 kubectl rollout undo ds ds-one --to-revision=1
 ```
 
 ##
 
-10.Check the image after checking the Pod name
+10 .Check the image after checking the Pod name
 ```
 kubectl get pod
 kubectl describe pod <pod name from above> | grep Image:
@@ -138,7 +138,7 @@ kubectl describe pod <pod name from above> | grep Image:
 
 ##
 
-11.Delete the above pod and check the image of the redeployed pod
+11. Delete the above pod and check the image of the redeployed pod
 ```
 kubectl delete pod <pod name from above>
 ```
@@ -153,7 +153,7 @@ kubectl describe pod <new pod name from above> | grep Image:
 
 ##
 
-12.Deamonset information confirmation
+12. Deamonset information confirmation
 ```
 kubectl describe ds | grep Image:
 ```
@@ -188,7 +188,7 @@ EOF
 
 ##
 
-14.Pod check
+14. Pod check
 ```
 kubectl get pod
 ```
@@ -202,7 +202,7 @@ kubectl describe pod <pod name deployed above> | grep Image:
 
 ##
 
-16.Daemonset modification
+16. Daemonset modification
 ```
 kubectl edit ds ds-two --record
 ```
