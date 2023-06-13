@@ -37,6 +37,7 @@ Configure /etc/hosts on all nodes involved to ensure that Ingress access will wo
 
 1. Linkerd installation
 ```
+# https://linkerd.io/2.13/getting-started/
 curl --proto '=https' --tlsv1.2 -sSfL https://run.linkerd.io/install | sh
 export PATH=$PATH:/home/ubuntu/.linkerd2/bin
 echo "export PATH=$PATH:/home/ubuntu/.linkerd2/bin" >> $HOME/.bashrc
