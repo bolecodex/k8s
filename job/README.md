@@ -15,7 +15,7 @@ kubectl create -f mynewjob.yaml
 
 >job
 
-1.job creation
+1. job creation
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: batch/v1
@@ -36,7 +36,7 @@ EOF
 
 ##
 
-2.job confirmation
+2. job confirmation
 ```
 kubectl get job
 kubectl describe job sleepy
@@ -44,14 +44,14 @@ kubectl describe job sleepy
 
 ##
 
-Check in 3.yaml format
+3. Check in yaml format
 ```
 kubectl get job sleepy -o yaml
 ```
 
 ##
 
-4.Delete the job after a certain amount of time has elapsed and the status of the job is Completed
+4. Delete the job after a certain amount of time has elapsed and the status of the job is Completed
 ```
 kubectl delete job sleepy
 ```
@@ -80,14 +80,14 @@ EOF
 
 ##
 
-6.Check job execution
+6. Check job execution
 ```
 kubectl get job
 ```
 
 ##
 
-7.Delete when the job is complete
+7. Delete when the job is complete
 ```
 kubectl delete job sleepy
 ```
@@ -117,14 +117,14 @@ EOF
 
 ##
 
-9.Check job execution
+9. Check job execution
 ```
 kubectl get job
 ```
 
 ##
 
-10.Delete after confirmation of execution
+10. Delete after confirmation of execution
 ```
 kubectl delete job sleepy
 ```
@@ -155,7 +155,7 @@ EOF
 
 ##
 
-Check with the following command every 3 seconds for 12.15 seconds
+12. Check with the following command every 3 seconds for 15 seconds
 ```
 kubectl get job
 ```
@@ -163,7 +163,7 @@ After 15 seconds, approximately 3 out of 5 completed, the rest exited without co
 
 ##
 
-Check Stauts field in 13.yaml form
+13. Check Stauts field in yaml form
 ```
 kubectl get job sleepy -o yaml
 ```
@@ -202,14 +202,14 @@ EOF
 ```
 ##
 
-2.cronjob verification
+2. cronjob verification
 ```
 kubectl get cronjob
 ```
 
 ##
 
-3.job confirmation
+3. job confirmation
 ```
 kubectl get job
 ```
@@ -227,7 +227,7 @@ kubectl get job
 kubectl delete cronjob sleepy
 ```
 
-6.Deploy by adding an option with the command below (activeDeadlineSeconds)
+6. Deploy by adding an option with the command below (activeDeadlineSeconds)
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: batch/v1
