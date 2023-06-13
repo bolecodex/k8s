@@ -24,7 +24,7 @@ less ~/calico.yaml
 
 ##
 
-3.CRD generation
+3. CRD generation
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: apiextensions.k8s.io/v1
@@ -72,7 +72,7 @@ EOF
 
 ##
 
-4.CRD confirmation
+4. CRD confirmation
 ```
 kubectl get crd crontabs.stable.example.com
 kubectl describe crd crontabs.stable.example.com
@@ -98,7 +98,7 @@ EOF
 
 ##
 
-6.CRD created above - Crontap check
+6. CRD created above - Crontap check
 ```
 kubectl get crontab
 kubectl get ct
