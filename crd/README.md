@@ -43,7 +43,7 @@ spec:
       # One and only one version must be marked as the storage version.
       storage: true
       schema:
-        openAPIV3Schedule:
+        openAPIV3Schema:
           type: object
           properties:
             spec:
