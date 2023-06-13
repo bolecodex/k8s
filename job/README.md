@@ -11,7 +11,7 @@ kubectl create job mynewjob --image=busybox --dry-run=client -o yaml -- sleep 5 
 #   ttlSecondsAfterFinished: 60
 kubectl create -f mynewjob.yaml
 ```
-# Exercise 6.3
+# Exercise
 
 >job
 
@@ -173,102 +173,4 @@ kubectl get job sleepy -o yaml
 14. Job deletion
 ```
 kubectl delete job sleepy
-```
-
-##
-
->cronjob
-
-1. Create a cronjob
-```
-cat <<EOF | kubectl create -f -
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: sleepy
-spec:
-  schedule: "*/2 * * * *"
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: resting
-            image: busybox
-            command: ["/bin/sleep"]
-            args: ["5"]
-          restartPolicy: Never
-EOF
-```
-##
-
-2. cronjob verification
-```
-kubectl get cronjob
-```
-
-##
-
-3. job confirmation
-```
-kubectl get job
-```
-
-##
-
-4. Check again after about 2 minutes
-```
-kubectl get cronjob
-kubectl get job
-```
-
-5. Delete cronjob
-```
-kubectl delete cronjob sleepy
-```
-
-6. Deploy by adding an option with the command below (activeDeadlineSeconds)
-```
-cat <<EOF | kubectl create -f -
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: sleepy
-spec:
-  schedule: "*/2 * * * *"
-  jobTemplate:
-    spec:
-      activeDeadlineSeconds: 10  
-      template:
-        spec:
-          containers:
-          - name: resting
-            image: busybox
-            command: ["/bin/sleep"]
-            args: ["30"]
-          restartPolicy: Never
-EOF
-```
-
-##
-
-7. Check cronjob and job
-```
-kubectl get cronjob
-kubectl get job
-```
-
-##
-
-8. Confirm that the completion count does not start after 10 seconds
-```
-kubectl get cronjob
-kubectl get job
-```
-
-##
-
-9. Delete cronjob
-```
-kubectl delete cronjob sleepy
 ```
