@@ -32,10 +32,10 @@ Use Ingress to make the deployment accessible on the virtual host accessgninx.in
 Configure /etc/hosts on all nodes involved to ensure that Ingress access will work
 ```
 
-# Exercise 11.1
+# Exercise 1
 
 
-1.Linkerd installation
+1. Linkerd installation
 ```
 curl -sL run.linkerd.io/install | LINKERD2_VERSION=stable-2.10.1 sh
 export PATH=$PATH:/home/ubuntu/.linkerd2/bin
@@ -79,7 +79,7 @@ kubectl patch svc web --patch '{"spec":{"type":"NodePort"}}' -n linkerd-viz
 
 ##
 
-4.Nodeport number confirmation
+4. Nodeport number confirmation
 ```
 kubectl get svc web -n linkerd-viz
 ```
@@ -177,18 +177,18 @@ watch -n 0.1 curl $(kubectl get svc nginx-one -o=jsonpath='{.spec.clusterIP}' -n
 
 ##
 
-12.Check the Deployment and Pod connected to the service on the dashboard
+12. Check the Deployment and Pod connected to the service on the dashboard
 
 ##
 
-13.Adjust the number of replicas of Deployment
+13. Adjust the number of replicas of Deployment
 ```
 kubectl -n accounting scale deploy nginx-one --replicas=5
 ```
 
 ##
 
-14.Generate traffic to the service
+14. Generate traffic to the service
 ```
 watch -n 0.1 curl $(kubectl get svc nginx-one -o=jsonpath='{.spec.clusterIP}' -n accounting)
 ```
@@ -199,9 +199,9 @@ watch -n 0.1 curl $(kubectl get svc nginx-one -o=jsonpath='{.spec.clusterIP}' -n
 
 ##
 
-# Exercise 11.2 - Ingress Controller
+# Exercise 2 - Ingress Controller
 
-1.Search ingress using helm
+1. Search ingress using helm
 
 ```
 helm search hub ingress
@@ -217,7 +217,7 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 
 ##
 
-3.repo update
+3. repo update
 
 ```
 helm repo update
@@ -225,7 +225,7 @@ helm repo update
 
 ##
 
-Download 4.yaml and change to Daemonset
+4. Download yaml and change to Daemonset
 
 ```
 helm fetch ingress-nginx/ingress-nginx --untar
@@ -303,7 +303,7 @@ kubectl get pod -o wide | grep myingress
 
 ##
 
-curl to the ip of the pod you checked in 9.8
+9. curl to the ip of the pod you checked in 8
 
 ```
 curl <pod ip>
@@ -311,7 +311,7 @@ curl <pod ip>
 
 ##
 
-10.svc check
+10. check svc
 
 ```
 kubectl get svc | grep ingress
@@ -343,7 +343,7 @@ kubectl get ds myingress-ingress-nginx-controller -o yaml  | linkerd inject --in
 
 ##
 
-14.In the linkerd dashboard, select Top - Default namespace - select daemonset/myingress-ingress-nginx-controller - click the start button
+14. In the linkerd dashboard, select Top - Default namespace - select daemonset/myingress-ingress-nginx-controller - click the start button
 
 ![](../img/linkerd.png)
 
@@ -424,7 +424,7 @@ exit
 
 ##
 
-Edit 18.ingress
+18. Edit ingress
 
 ```
 kubectl edit ingress ingress-test
@@ -439,7 +439,7 @@ spec:
 
 ##
 
-19.curl test
+19. curl test
 
 ```
 curl -H "Host: internal.org" http://<ingress controller svc ip>/
