@@ -103,12 +103,11 @@ kubectl get pod
 ```
 kubectl edit pod <pod name from above>
 ```
-
+modified to
 ```
 labels:
   system: IsolatedPod
 ```
-modified with
 
 ##
 
@@ -126,7 +125,7 @@ kubectl get pod -L system
 
 ##
 
-12. RS Delete
+12. Delete RS
 ```
 kubectl delete rs rs-one
 ```
