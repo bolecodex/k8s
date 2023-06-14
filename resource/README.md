@@ -79,7 +79,7 @@ kubectl describe pod <pod name from above>
 ```
 top
 ```
-to check CPU usage
+to check memory usage
 
 ##
 
