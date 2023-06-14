@@ -18,10 +18,10 @@ kubectl get pods –o wide # will show that pods are all on worker2
 kubectl create –f taint-toleration.yaml
 ```
 
-# Exercise 12.2
+# Exercise 1
 
 
-1.Deployment creation
+1. Deployment creation
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: apps/v1
@@ -48,14 +48,14 @@ EOF
 
 ##
 
-2.Check which node the Pod created by the above Deployment is deployed to
+2. Check which node the Pod created by the above Deployment is deployed to
 ```
 kubectl get pod -o wide
 ```
 
 ##
 
-3.Delete Deployment
+3. Delete Deployment
 ```
 kubectl delete deployment taint-deployment
 ```
@@ -76,7 +76,7 @@ kubectl describe node worker | grep Taint
 
 ##
 
-6.Delete Deployment
+6. Delete Deployment
 ```
 kubectl delete deployment taint-deployment
 ```
@@ -138,14 +138,14 @@ EOF
 
 ##
 
-12.Check which node the Pod created by the above Deployment is deployed to
+12. Check which node the Pod created by the above Deployment is deployed to
 ```
 kubectl get pod -o wide
 ```
 
 ##
 
-13.Delete Deployment
+13. Delete Deployment
 ```
 kubectl delete deployment taint-deployment
 ```
@@ -221,7 +221,7 @@ kubectl get pod -o wide
 
 ##
 
-21.Delete Deployment
+21. Delete Deployment
 ```
 kubectl delete deployment taint-deployment
 ```
