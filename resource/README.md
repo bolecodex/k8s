@@ -140,7 +140,7 @@ metadata:
   name: low-resource-range
 spec:
   limits:
-  -default:
+  - default:
       CPU: 1
       Memory: 500 Mi
     defaultRequest:
