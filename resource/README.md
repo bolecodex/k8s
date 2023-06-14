@@ -10,7 +10,7 @@ kubectl set resources deploy nginx --requests cpu=100m,memory=5Mi --limits cpu=2
 kubectl get pods -n limited
 ```
 
-# Exercise 4.2
+# Exercise 1
 
 
 1. Distribute load generation Deployment
@@ -29,7 +29,7 @@ kubectl get deployment hog -o yaml
 
 ##
 
-Save as 3.yaml file
+3. Save as yaml file
 ```
 kubectl get deployment hog -o yaml > hog.yaml
 ```
@@ -83,7 +83,7 @@ Check CPU usage
 
 ##
 
-Change the CPU memory stress factor by modifying the 9.hog.yaml file
+9. Change the CPU memory stress factor by modifying the hog.yaml file
 ```
 we hog.yaml
 ```
@@ -109,7 +109,7 @@ args:
 
 ##
 
-Redeployment after deleting 10.Deployment
+10. Redeployment after deleting Deployment
 ```
 kubectl delete deployment hog
 ```
@@ -120,7 +120,7 @@ kubectl create -f hog.yaml
 Check the usage on the node where the top command was executed again
 
 
-#Exercise 4.3
+#Exercise 2
 
 
 1. Create and confirm a new Namespace
@@ -160,7 +160,7 @@ kubectl get LimitRange --all-namespaces
 
 ##
 
-Deploy Deployment in low-usage-limit namespace
+4. Deploy Deployment in low-usage-limit namespace
 ```
 kubectl -n low-usage-limit \
 create deployment limited-hog --image vish/stress
@@ -168,14 +168,14 @@ create deployment limited-hog --image vish/stress
 
 ##
 
-5.Deployment confirmation
+5. Deployment confirmation
 ```
 kubectl get deployments --all-namespaces
 ```
 
 ##
 
-6.Check the deployed Pod
+6. Check the deployed Pod
 ```
 kubectl -n low-usage-limit get pods
 ```
@@ -183,7 +183,7 @@ kubectl -n low-usage-limit get pods
 
 ##
 
-7.Output the pod checked above in yaml
+7. Output the pod checked above in yaml
 ```
 kubectl -n low-usage-limit \
 get pod <pod name> -o yaml
@@ -193,7 +193,7 @@ Check if the CPU and Memory are set to the default settings set in Limitrange
 
 ##
 
-8.Copy hog.yaml to hog2.yaml and edit.
+8. Copy hog.yaml to hog2.yaml and edit.
 ```
 cp hog.yaml hog2.yaml
 ```
@@ -232,7 +232,7 @@ kubectl get deployment --all-namespaces
 
 ##
 
-12.Delete hog Deployment
+12. Delete hog Deployment
 ```
 kubectl -n low-usage-limit delete deployment hog
 kubectl delete deployment hog
