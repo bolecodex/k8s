@@ -44,8 +44,8 @@ sudo crictl config --set runtime-endpoint=unix:///run/containerd/containerd.sock
 5. In the CP terminal, label each CP node and Worker node
 
 ```
-kubectl label nodes cp status=vip
-kubectl label nodes worker status=other
+kubectl label nodes <control plane node name> status=vip
+kubectl label nodes <worker node name> status=other
 ```
 
 ##
