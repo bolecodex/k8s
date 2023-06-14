@@ -7,7 +7,7 @@ Run a Pod with the name pv-pod that uses this persistent volume from the "myvol"
 
 Use kubectl edit or kubectl patch with recording to change the size of the claim from 100MiB to 200MiB
 
-# Exercise 8.2. 
+# Exercise 1 (Optional) 
 
 >Proceed with the root administrator account
 ```
@@ -92,17 +92,17 @@ EOF
 kubectl get pv
 ```
 
-# Exercise 8.3
+# Exercise 2
 
 
-1.pvc check
+1. pvc check
 ```
 kubectl get pvc
 ```
 
 ##
 
-2.pvc creation
+2. pvc creation
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: v1
@@ -127,7 +127,7 @@ kubectl get pvc
 
 ##
 
-4.deployment creation
+4. deployment creation
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: apps/v1
@@ -164,7 +164,7 @@ EOF
 
 ##
 
-5.Check Pod deployed by Deployment and look up detailed information
+5. Check Pod deployed by Deployment and look up detailed information
 ```
 kubectl get pod
 kubectl describe pod <pod name from above>
@@ -172,12 +172,12 @@ kubectl describe pod <pod name from above>
 
 ##
 
-6.pvc connection status check
+6. pvc connection status check
 ```
 kubectl get pvc
 ```
 
-# Exercise 8.4
+# Exercise 3
 
 
 1. Delete the previous lab used resources
@@ -204,7 +204,7 @@ kubectl describe ns small
 
 ##
 
-4.PV and PVC production
+4. PV and PVC production
 ```
 cat <<EOF | kubectl create -n small -f -
 apiVersion: v1
@@ -240,7 +240,7 @@ EOF
 
 ##
 
-5.ResourceQuota Creation
+5. ResourceQuota Creation
 ```
 cat <<EOF | kubectl apply -n small -f -
 apiVersion: v1
@@ -263,7 +263,7 @@ kubectl describe ns small
 
 ##
 
-7.Deployment Creation
+7. Deployment Creation
 ```
 cat <<EOF | kubectl create -n small -f -
 apiVersion: apps/v1
@@ -352,7 +352,7 @@ kubectl get pv pvvol-1 -n small
 
 ##
 
-15.pv delete
+15. pv delete
 ```
 kubectl delete pv pvvol-1
 ```
@@ -381,7 +381,7 @@ EOF
 
 ##
 
-17.pv's ReclaimPolicy, RQ confirmation
+17. pv's ReclaimPolicy, RQ confirmation
 ```
 kubectl get pv pvvol-1
 kubectl describe ns small
@@ -414,7 +414,7 @@ kubectl describe ns small
 
 ##
 
-20.RQ modified (requests.storage value modified to 100Mi)
+20. RQ modified (requests.storage value modified to 100Mi)
 ```
 cat <<EOF | kubectl apply -n small -f -
 apiVersion: v1
@@ -437,7 +437,7 @@ kubectl describe ns small
 
 ##
 
-22.Deployment creation
+22. Deployment creation
 ```
 cat <<EOF | kubectl create -n small -f -
 apiVersion: apps/v1
@@ -474,7 +474,7 @@ EOF
 
 ##
 
-23.Check the Pod deployed by the above Deployment
+23. Check the Pod deployed by the above Deployment
 ```
 kubectl get pods -n small
 ```
@@ -489,21 +489,21 @@ kubectl -n small delete pvc/pvc-one
 
 ##
 
-Make sure 25.pv is deleted together
+25. Make sure pv is deleted together
 ```
 kubectl get pv
 ```
 
 ##
 
-26.pv event confirmation
+26. pv event confirmation
 ```
 kubectl describe pv pvvol-1
 ```
 
 ##
 
-Delete 27.pv
+27. Delete pv
 ```
 kubectl delete pv pvvol-1
 ```
@@ -536,7 +536,7 @@ kubectl describe ns small
 
 ##
 
-Create 30.pv (ReclaimPolicy: Recycle) and confirm
+30. Create pv (ReclaimPolicy: Recycle) and confirm
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: v1
@@ -561,7 +561,7 @@ kubectl get pv
 
 ##
 
-Attempt to create 31.pvc (scheduled to fail due to limiting reasons)
+31. Attempt to create pvc (scheduled to fail due to limiting reasons)
 ```
 cat <<EOF | kubectl create -n small -f -
 apiVersion: v1
@@ -579,7 +579,7 @@ EOF
 
 ##
 
-32.RQ modified (requests.storage: "500Mi")
+32. RQ modified (requests.storage: "500Mi")
 ```
 cat <<EOF | kubectl apply -n small -f -
 apiVersion: v1
@@ -613,7 +613,7 @@ EOF
 
 ##
 
-34.Change LimitRange setting
+34. Change LimitRange setting
 ```
 cat <<EOF | kubectl -n small apply -f -
 apiVersion: v1
@@ -632,7 +632,7 @@ EOF
 ##
 
 
-35.pv, Create Deployment
+35. pv, Create Deployment
 ```
 cat <<EOF | kubectl create -n small -f -
 apiVersion: v1
@@ -685,7 +685,7 @@ EOF
 
 ##
 
-34.Check the Pod deployed by Deployment
+34. Check the Pod deployed by Deployment
 ```
 kubectl get pod -n small
 ```
@@ -706,7 +706,7 @@ kubectl delete deploy nginx-nfs -n small
 
 ##
 
-Check 37.pvc,pv
+37. Check pvc,pv
 ```
 kubectl get pvc -n small
 kubectl get pv
@@ -721,7 +721,7 @@ kubectl delete pvc pvc-one -n small
 
 ##
 
-39.pv status check, event check
+39. pv status check, event check
 ```
 kubectl get pv
 kubectl describe pv pvvol-1
@@ -729,14 +729,14 @@ kubectl describe pv pvvol-1
 
 ##
 
-Delete 40.pv
+40. Delete pv
 ```
 kubectl delete pv pvvol-1
 ```
 
 ##
 
-Delete 41.NS
+41. Delete NS
 ```
 kubectl delete ns small
 ```
