@@ -49,9 +49,9 @@ kubectl get pods
 
 ##
 
-5. rs delete (pod not deleted option added)
+5. Delete rs
 ```
-kubectl delete rs rs-one --cascade=orphan
+kubectl delete rs rs-one
 ```
 
 ##
@@ -64,7 +64,7 @@ kubectl get pod
 
 ##
 
-7. rs redistributed in 2
+7. Redistributed rs in 2
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: apps/v1
