@@ -31,7 +31,7 @@ openssl genrsa -out DevDan.key 2048
 
 ##
 
-4. Create CSR(certificate Singing Request)
+4. Create CSR(Certificate Signing Request)
 ```
 touch $HOME/.rnd
 openssl req -new -key DevDan.key -out DevDan.csr \
