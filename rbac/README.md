@@ -5,7 +5,7 @@ Create a role with the name "viewers", which allows permissions to view pods in 
 Create a Pod with the name "viewpod" in the namespaces "roles" which uses this role
 ```
 
-# Exercise 1
+# Exercise 1 (Optional)
 
 
 1. Check the kubelet configuration file path
