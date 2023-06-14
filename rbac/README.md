@@ -6,7 +6,7 @@ Create a Pod with the name "viewpod" in the namespaces "roles" which uses this r
 ```
 
 
-# Exercise 15.2
+# Exercise
 
 
 1. Create NS
@@ -24,14 +24,14 @@ kubectl config get-contexts
 
 ##
 
-3.Generate a private key for DevDan users
+3. Generate a private key for DevDan users
 ```
 openssl genrsa -out DevDan.key 2048
 ```
 
 ##
 
-4.CSR(certificate Singing Request) 생성
+4. Create CSR(certificate Singing Request)
 ```
 touch $HOME/.rnd
 openssl req -new -key DevDan.key -out DevDan.csr \
@@ -40,7 +40,7 @@ openssl req -new -key DevDan.key -out DevDan.csr \
 
 ##
 
-5.Self-signed Certificate 생성
+5. Create self-signed Certificate
 ```
 sudo openssl x509 -req -in DevDan.csr \
 -CA /etc/kubernetes/pki/ca.crt \
@@ -67,7 +67,7 @@ diff cluster-api-config .kube/config -y
 
 ##
 
-8.Context Creation
+8. Context Creation
 ```
 kubectl config set-context DevDan-context \
 --cluster=kubernetes \
@@ -77,7 +77,7 @@ kubectl config set-context DevDan-context \
 
 ##
 
-9.Check the Pod of development NS using the Context created above
+9. Check the Pod of development NS using the Context created above
 ```
 kubectl --context=DevDan-context get pods
 ```
@@ -98,7 +98,7 @@ diff cluster-api-config .kube/config -y
 
 ##
 
-12.Role Creation
+12. Role Creation
 ```
 cat <<EOF | kubectl create -f -
 kind: Role
@@ -136,35 +136,35 @@ EOF
 
 ##
 
-14.Check development NS Pod using DevDan-context Context
+14. Check development NS Pod using DevDan-context Context
 ```
 kubectl --context=DevDan-context get pods
 ```
 
 ##
 
-15.Create Deployment in development namespace using DevDan-context Context
+15. Create Deployment in development namespace using DevDan-context Context
 ```
 kubectl --context=DevDan-context create deployment nginx --image=nginx
 ```
 
 ##
 
-16.Check development NS Pod using DevDan-context Context
+16. Check development NS Pod using DevDan-context Context
 ```
 kubectl --context=DevDan-context get pods
 ```
 
 ##
 
-17.Delete Deployment in development namespace using DevDan-context Context
+17. Delete Deployment in development namespace using DevDan-context Context
 ```
 kubectl --context=DevDan-context delete deployment nginx
 ```
 
 ##
 
-18.Role Creation
+18. Role Creation
 ```
 cat <<EOF | kubectl create -f -
 kind: Role
@@ -202,7 +202,7 @@ EOF
 
 ##
 
-20.Context Creation
+20. Context Creation
 ```
 kubectl config set-context ProdDan-context \
 --cluster=kubernetes \
@@ -212,35 +212,35 @@ kubectl config set-context ProdDan-context \
 
 ##
 
-21.Check the Pod of production NS using the Context created above
+21. Check the Pod of production NS using the Context created above
 ```
 kubectl --context=ProdDan-context get pods
 ```
 
 ##
 
-22.Create Deployment in production Namespace using ProdDan-context Context
+22. Create Deployment in production Namespace using ProdDan-context Context
 ```
 kubectl --context=ProdDan-context create deployment nginx --image=nginx
 ```
 
 ##
 
-23.Check the permissions of the dev-prod role
+23. Check the permissions of the dev-prod role
 ```
 kubectl -n production describe role dev-prod
 ```
 
 ##
 
-24.Check the list of actions that DevDan user can perform in deployment NS
+24. Check the list of actions that DevDan user can perform in deployment NS
 ```
 kubectl auth can-i --as DevDan --list -n development
 ```
 
 ##
 
-25.Check the list of actions that DevDan user can perform in production NS
+25. Check the list of actions that DevDan user can perform in production NS
 ```
 kubectl auth can-i --as DevDan --list -n production
 ```
