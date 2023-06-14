@@ -140,12 +140,12 @@ metadata:
   name: low-resource-range
 spec:
   limits:
-  - default:
-      CPU: 1
-      Memory: 500 Mi
-    defaultRequest:
-      CPU: 0.5
-      Memory: 100 Mi
+  - default: # this section defines default limits
+      cpu: "1"
+      memory: 500m
+    defaultRequest: # this section defines default requests
+      cpu: "0.5"
+      memory: 100m
     type: Container
 EOF
 ```
