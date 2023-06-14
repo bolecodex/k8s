@@ -1,7 +1,7 @@
 # Exercise 7.1
 
 
-1.Replicaset confirmation
+1. Replicaset confirmation
 ```
 kubectl get rs
 ```
@@ -42,14 +42,14 @@ kubectl describe rs rs-one
 
 ##
 
-4.Pod check
+4. Pod check
 ```
 kubectl get pods
 ```
 
 ##
 
-5.rs delete (pod not deleted option added)
+5. rs delete (pod not deleted option added)
 ```
 kubectl delete rs rs-one --cascade=orphan
 ```
@@ -64,7 +64,7 @@ kubectl get pod
 
 ##
 
-rs redistributed in 7.2
+7. rs redistributed in 2
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: apps/v1
@@ -99,7 +99,7 @@ kubectl get pod
 
 ##
 
-Modify existing resources with the 9.edit command
+9. Modify existing resources with the edit command
 ```
 kubectl edit pod <pod name from above>
 ```
@@ -126,21 +126,21 @@ kubectl get pod -L system
 
 ##
 
-12.RS Delete
+12. RS Delete
 ```
 kubectl delete rs rs-one
 ```
 
 ##
 
-13.Pod check
+13. Pod check
 ```
 kubectl get pods
 ```
 
 ##
 
-14.Delete the pod separated from RS
+14. Delete the pod separated from RS
 ```
 kubectl delete pod -l system=IsolatedPod
 ```
