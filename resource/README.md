@@ -79,13 +79,13 @@ kubectl describe pod <pod name from above>
 ```
 top
 ```
-Check CPU usage
+to check CPU usage
 
 ##
 
 9. Change the CPU memory stress factor by modifying the hog.yaml file
 ```
-we hog.yaml
+vim hog.yaml
 ```
 Modify spec.template.spec.containers[0].args as below
 ```
