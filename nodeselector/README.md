@@ -1,4 +1,4 @@
-# Exercise 12.1
+# Exercise
 
 
 1. Check the node list
