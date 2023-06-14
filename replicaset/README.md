@@ -1,4 +1,4 @@
-# Exercise 7.1
+# Exercise
 
 
 1. Replicaset confirmation
