@@ -120,7 +120,7 @@ kubectl create -f hog.yaml
 Check the usage on the node where the top command was executed again
 
 
-#Exercise 2
+# Exercise 2
 
 
 1. Create and confirm a new Namespace
