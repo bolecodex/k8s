@@ -49,9 +49,9 @@ kubectl get pods
 
 ##
 
-5. Delete rs
+5. Delete rs but not delete pod(pod will stay running)
 ```
-kubectl delete rs rs-one
+kubectl delete rs rs-one --cascade=orphan
 ```
 
 ##
