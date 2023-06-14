@@ -38,7 +38,7 @@ kubectl get deployment hog -o yaml > hog.yaml
 
 4. Open the file to modify
 ```
-we hog.yaml
+vim hog.yaml
 ```
 Modify spec.template.spec.containers[0].resources as below
 ```
