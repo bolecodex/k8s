@@ -72,7 +72,7 @@ kubectl get deployment hog -o yaml
 kubectl get pods
 ```
 ```
-kubectl logs <pod name from above>
+kubectl describe pod <pod name from above>
 ```
 
 8. Open two more terminals, access CP and worker, and run the top command
