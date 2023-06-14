@@ -170,7 +170,7 @@ create deployment limited-hog --image vish/stress
 
 5. Deployment confirmation
 ```
-kubectl get deployments --all-namespaces
+kubectl get deployments -n low-usage-limit
 ```
 
 ##
