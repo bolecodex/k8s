@@ -1,4 +1,4 @@
-# Exercise 9.4
+# Exercise (Optional) (In combined with deployment exercise)
 
 
 1. Pod creation
