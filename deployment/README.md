@@ -1,4 +1,4 @@
-# Exercise 9.1
+# Exercise 1
 
 
 1. Attempt to create Deployment (scheduled to fail)
@@ -42,14 +42,14 @@ kubectl get node --show-labels
 
 ##
 
-3.NS generation
+3. NS generation
 ```
 kubectl create ns accounting
 ```
 
 ##
 
-4.Deployment Creation
+4. Deployment Creation
 ```
 cat <<EOF | kubectl create -f -
 apiVersion: apps/v1
@@ -83,7 +83,7 @@ EOF
 
 ##
 
-5.Pod check
+5. Pod check
 ```
 kubectl -n accounting get pod
 ```
@@ -97,7 +97,7 @@ kubectl -n accounting describe pod <pod name identified above>
 
 ##
 
-7.Label the Worker node
+7. Label the Worker node
 ```
 kubectl label node worker system=secondOne
 ```
@@ -111,7 +111,7 @@ kubectl get node --show-labels
 
 ##
 
-9.Check Pod Status
+9. Check Pod Status
 ```
 kubectl -n accounting get pod
 ```
@@ -125,14 +125,14 @@ kubectl get pods -l system=secondary --all-namespaces
 
 ##
 
-11.Service Creation
+11. Service Creation
 ```
 kubectl -n accounting expose deployment nginx-one
 ```
 
 ##
 
-12.endpoint check
+12. endpoint check
 ```
 kubectl -n accounting get ep nginx-one
 ```
@@ -149,7 +149,7 @@ curl <IP verified above>:80
 
 ##
 
-14.Delete Deployment
+14. Delete Deployment
 ```
 kubectl -n accounting delete deployment nginx-one
 ```
@@ -188,7 +188,7 @@ spec:
 EOF
 ```
 
-# Exercise 9.2
+# Exercise 2
 
 
 1. Create NodePort type Service
@@ -224,7 +224,7 @@ curl http://k8scp:<nodeport checked above>
 curl ifconfig.io
 ```
 
-# Exercise 9.3
+# Exercise 3
 
 
 1. Delete all pods with label system=secondary
@@ -234,21 +234,21 @@ kubectl delete pod -l system=secondary --all-namespaces
 
 ##
 
-2.Accounting NS Pod inquiry
+2. Accounting NS Pod inquiry
 ```
 kubectl -n accounting get pod
 ```
 
 ##
 
-3.Accounting NS deployment label lookup
+3. Accounting NS deployment label lookup
 ```
 kubectl -n accounting get deploy --show-labels
 ```
 
 ##
 
-4.Delete the Deployment by deleting the label
+4. Delete the Deployment by deleting the label
 ```
 kubectl -n accounting delete deploy -l system=secondary
 ```
