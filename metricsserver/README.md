@@ -43,7 +43,7 @@ Pod modified in 2 must be in Running state again to operate.
 
 ##
 
-Dashboard Configuration(Optional)
+>Dashboard Configuration (Optional)
 
 1. Download the kubernetes dashboard chart
 ```
@@ -59,7 +59,7 @@ cat values.yaml
 
 ##
 
-3.Kubernetes Dashboard chart installation
+3. Kubernetes Dashboard chart installation
 ```
 helm install kubernetes-dashboard . --set service.type=NodePort
 ```
@@ -124,7 +124,7 @@ echo "https://$(curl -s ifconfig.io):$(kubectl get svc kubernetes-dashboard -o=j
 If a certificate error occurs, enter thisisunsafe in Chrome browser
 ##
 
-Log in using the token value saved in step 10.7
+10. Log in using the token value saved in step 7
 
 ##
 
