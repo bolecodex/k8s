@@ -58,14 +58,14 @@ export token=<token value output in step 2>
 
 4. Test if you can check the basic API information of the cluster
 ```
-curl https://k8scp:6443/apis --header "Authorization: Bearer $token" -k
+curl https://<control node name>:6443/apis --header "Authorization: Bearer $token" -k
 ```
 
 ##
 
 5. v1 Check Information
 ```
-curl https://k8scp:6443/api/v1 --header "Authorization: Bearer $token" -k
+curl https://<control node name>:6443/api/v1 --header "Authorization: Bearer $token" -k
 ```
 
 ##
@@ -73,7 +73,7 @@ curl https://k8scp:6443/api/v1 --header "Authorization: Bearer $token" -k
 6. Check namespace information
 ```
 curl \
-https://k8scp:6443/api/v1/namespaces --header "Authorization: Bearer $token" -k
+https://<control node name>:6443/api/v1/namespaces --header "Authorization: Bearer $token" -k
 ```
 
 ##
@@ -103,7 +103,7 @@ exit
 
 8. Pod Delete
 ```
-kubectl delete under busybox
+kubectl delete pod busybox
 ```
 
 
