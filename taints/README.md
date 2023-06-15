@@ -18,7 +18,7 @@ kubectl get pods –o wide # will show that pods are all on worker2
 kubectl create –f taint-toleration.yaml
 ```
 
-# Exercise 1
+# Exercise
 
 
 1. Deployment creation
@@ -94,6 +94,11 @@ kubectl taint nodes <worker node name> status-
 ```
 kubectl describe node <worker node name> | grep Taint
 ```
+
+
+
+
+
 
 The following contents are just repeating.
 
