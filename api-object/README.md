@@ -140,7 +140,7 @@ curl http://127.0.0.1:8001/api/v1/namespaces
 
 5. Exit proxy
 ```
-ps
+ps aux | grep kubectl
 ```
 Kill the identified proxy process kubectl
 ```
