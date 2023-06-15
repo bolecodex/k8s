@@ -10,8 +10,8 @@ kubectl get pod -o wide | grep taintdeploy
 
 # Demo 2: Taint and toleration
 ```
-kubectl taint nodes worker1 storage=ssd:NoSchedule
-kubectl describe nodes worker1
+kubectl taint nodes <worker node name>1 storage=ssd:NoSchedule
+kubectl describe nodes <worker node name>1
 kubectl create deployment nginx-taint --image=nginx
 kubectl scale deployment nginx-taint –replicas=3
 kubectl get pods –o wide # will show that pods are all on worker2
@@ -64,14 +64,14 @@ kubectl delete deployment taint-deployment
 
 4. Set up a taint on the Worker node
 ```
-kubectl taint nodes worker status=unstable:PreferNoSchedule
+kubectl taint nodes <worker node name> status=unstable:PreferNoSchedule
 ```
 
 ##
 
 5. Check the taint on the worker node
 ```
-kubectl describe node worker | grep Taint
+kubectl describe node <worker node name> | grep Taint
 ```
 
 ##
@@ -85,28 +85,30 @@ kubectl delete deployment taint-deployment
 
 7. Delete the taint set in the worker node
 ```
-kubectl taint nodes worker status-
+kubectl taint nodes <worker node name> status-
 ```
 
 ##
 
 8. Check the taint on the worker node
 ```
-kubectl describe node worker | grep Taint
+kubectl describe node <worker node name> | grep Taint
 ```
+
+The following contents are just repeating.
 
 ##
 
 9. Set a new taint on the Worker node
 ```
-kubectl taint nodes worker operation=upgrading:NoSchedule
+kubectl taint nodes <worker node name> operation=upgrading:NoSchedule
 ```
 
 ##
 
 10. Check the taint on the worker node
 ```
-kubectl describe node worker | grep Taint
+kubectl describe node <worker node name> | grep Taint
 ```
 
 ##
@@ -154,7 +156,7 @@ kubectl delete deployment taint-deployment
 
 14. Delete the taint set in the worker node
 ```
-kubectl taint nodes worker operation-
+kubectl taint nodes <worker node name> operation-
 ```
 
 ##
@@ -195,7 +197,7 @@ kubectl get pod -o wide
 
 17. Set the taint on the worker node
 ```
-kubectl taint nodes worker performance=slow-disk:NoExecute
+kubectl taint nodes <worker node name> performance=slow-disk:NoExecute
 ```
 
 ##
@@ -209,7 +211,7 @@ kubectl get pod -o wide -w
 
 19. Delete the taint set in the worker node
 ```
-kubectl taint nodes worker performance-
+kubectl taint nodes <worker node name> performance-
 ```
 
 ##
