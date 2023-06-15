@@ -41,6 +41,8 @@ kubectl top node
 ```
 Pod modified in 2 must be in Running state again to operate.
 
+If it doesn't work, use killercoda to do it again. https://killercoda.com/
+
 ##
 
 >Dashboard Configuration (Optional)
