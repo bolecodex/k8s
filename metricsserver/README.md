@@ -7,7 +7,7 @@ kubectl top pod --all-namespaces --sort-by='cpu' | awk 'NR==2{print $2}' >> /var
 kubectl top pod -A --sort-by cpu --no-headers | head -1 | awk '{print $2}' >> /var/exam/cpu-pods.txt
 ```
 
-# Exercise 13.3
+# Exercise
 
 >Metric-Server
 
@@ -29,7 +29,7 @@ Add below values to spec.template.spec.containers.args
 - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
 ```
 ```
-kubectl –n kube-system logs metrics-server<TAB> 
+kubectl -n kube-system logs metrics-server<TAB> 
 ```
 should show "Generating self-signed cert" and "Serving securely on [::]443
 
@@ -43,7 +43,7 @@ Pod modified in 2 must be in Running state again to operate.
 
 ##
 
->Dashboard Configuration
+Dashboard Configuration(Optional)
 
 1. Download the kubernetes dashboard chart
 ```
