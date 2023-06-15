@@ -90,7 +90,7 @@ ls /var/run/secrets/kubernetes.io/serviceaccount/
 cat /var/run/secrets/kubernetes.io/serviceaccount/token
 ```
 
-> When creating a Pod, a token is generated and applied, so it is different from the previous token value
+> When creating a Pod, a token is generated and applied, so it is different from the previous token value. The contents of the token is of the JSON Web Token (JWT) format. https://jwt.io/
 
 
 Close the connection after confirming
