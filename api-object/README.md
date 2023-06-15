@@ -31,7 +31,7 @@ kubectl apply -f mysapod.yaml
 curl -H "Authorization: Bearer $TOKEN" https://kubernetes/api/v1/namespaces/default/pods/ --insecure
 ```
 
-# Exercise 6.1
+# Exercise 1
 
 
 1. Check cluster configuration settings
@@ -63,7 +63,7 @@ curl https://k8scp:6443/apis --header "Authorization: Bearer $token" -k
 
 ##
 
-5.v1 Check Information
+5. v1 Check Information
 ```
 curl https://k8scp:6443/api/v1 --header "Authorization: Bearer $token" -k
 ```
@@ -107,7 +107,7 @@ kubectl delete under busybox
 ```
 
 
-# Exercise 6.2
+# Exercise 2
 
 
 1. Check proxy command help
@@ -117,7 +117,7 @@ kubectl proxy -h
 
 ##
 
-2.Set API prefix and start proxy
+2. Set API prefix and start proxy
 ```
 kubectl proxy --api-prefix=/ &
 ```
@@ -131,14 +131,14 @@ curl http://127.0.0.1:8001/api/
 
 ##
 
-Access by namespace using 4.curl
+4. Access by namespace using curl
 ```
 curl http://127.0.0.1:8001/api/v1/namespaces
 ```
 
 ##
 
-5.Exit proxy
+5. Exit proxy
 ```
 ps
 ```
