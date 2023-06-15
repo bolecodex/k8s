@@ -31,7 +31,7 @@ sudo crictl ps # should show all resources
 kubectl get deploy -A
 ```
 
-# Exercise 4.1 - etcd database backup
+# Exercise - etcd database backup
 
 1. etcd daemon search data directory
 
