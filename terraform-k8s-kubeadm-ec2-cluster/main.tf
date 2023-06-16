@@ -11,14 +11,45 @@ terraform {
 
 # Configure options
 provider "aws" {
-  region = "us-east-1"
+  region = "us-west-2"
+}
+
+
+resource "aws_vpc" "this" {
+  cidr_block       = "10.0.0.0/16"
+  instance_tenancy = "default"
+
+  tags = {
+    Name = "kubernetes-cluster-2"
+  }
 }
 
 # Defile any local vars
 locals {
-  pem_file     = "./k8s-kp.pem"
-  key_name     = "k8s-kp"
+  pem_file     = "./k8s-kp-2.pem"
+  key_name     = "k8s-kp-2"
 }
+
+resource "aws_internet_gateway" "this" {
+  vpc_id = aws_vpc.this.id
+}
+
+data "aws_availability_zones" "azs" {}
+
+resource "aws_subnet" "this" {
+  vpc_id                  = aws_vpc.this.id
+  cidr_block              = aws_vpc.this.cidr_block
+  availability_zone       = data.aws_availability_zones.azs.names[0]
+  map_public_ip_on_launch = true
+}
+
+resource "aws_route" "internet" {
+  route_table_id         = aws_vpc.this.default_route_table_id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.this.id
+}
+
+
 
 
 # https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key
@@ -45,33 +76,12 @@ resource "aws_key_pair" "ec2_key_pair" {
 resource "aws_security_group" "ec2_sg_control_plane" {
   name        = "lab-sg-kube-control"
   description = "Allow SSH inbound traffic"
+  vpc_id      = aws_vpc.this.id
   ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description     = "TCP"
-    from_port       = 6443
-    to_port         = 6443
-    protocol        = "tcp"
-    security_groups = [aws_security_group.ec2_sg_worker.id]
-  }
-  ingress {
-    description = "TCP"
-    from_port   = 6443
-    to_port     = 6443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description     = "TCP"
-    from_port       = 2379
-    to_port         = 2380
-    protocol        = "tcp"
-    security_groups = [aws_security_group.ec2_sg_worker.id]
   }
   egress {
     protocol    = -1
@@ -87,18 +97,11 @@ resource "aws_security_group" "ec2_sg_control_plane" {
 resource "aws_security_group" "ec2_sg_worker" {
   name        = "lab-sg-kube-worker"
   description = "Allow SSH inbound traffic"
+  vpc_id      = aws_vpc.this.id
   ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description = "SSH"
-    from_port   = 30000
-    to_port     = 32767
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
@@ -111,13 +114,21 @@ resource "aws_security_group" "ec2_sg_worker" {
   tags = var.sg_worker_node_tags
 }
 
-resource "aws_security_group_rule" "ec2_sg_worker_allow_cp_sg" {
-  type                     = "ingress"
-  from_port                = 10250
-  to_port                  = 10250
-  protocol                 = "tcp"
-  security_group_id        = aws_security_group.ec2_sg_worker.id
-  source_security_group_id = aws_security_group.ec2_sg_control_plane.id
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"]
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
@@ -126,7 +137,10 @@ resource "aws_instance" "ec2_instance_control_plane_node" {
   instance_type          = var.cp_instance_type
   key_name               = aws_key_pair.ec2_key_pair.key_name
   vpc_security_group_ids = [aws_security_group.ec2_sg_control_plane.id]
-  tags                   = var.control_plane_node_tags
+  subnet_id = aws_subnet.this.id
+  tags = {
+    Name = "cp"
+  }
 
   connection {
     type        = "ssh"
@@ -150,34 +164,47 @@ resource "aws_instance" "ec2_instance_control_plane_node" {
   }
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"]
-}
-
-resource "aws_instance" "ec2_instance_worker_node" {
+resource "aws_instance" "ec2_instance_worker_node1" {
   depends_on = [
     aws_instance.ec2_instance_control_plane_node
   ]
-  count                  = var.worker_node_count
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.worker_instance_type
   key_name               = aws_key_pair.ec2_key_pair.key_name
   vpc_security_group_ids = [aws_security_group.ec2_sg_worker.id]
+  subnet_id = aws_subnet.this.id
+  tags = {
+    Name = "worker1"
+  }
 
-  tags = var.worker_node_tags
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = tls_private_key.rsa_key.private_key_openssh
+    host        = self.public_ip
+  }
 
+  provisioner "remote-exec" {
+    scripts = [
+      "./kubeadm-scripts/step-01-k8s-packages-ubuntu.sh",
+      "./kubeadm-scripts/step-03-k8s-join.sh",
+    ]
+  }
+}
+
+resource "aws_instance" "ec2_instance_worker_node2" {
+  depends_on = [
+    aws_instance.ec2_instance_control_plane_node
+  ]
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = var.worker_instance_type
+  key_name               = aws_key_pair.ec2_key_pair.key_name
+  vpc_security_group_ids = [aws_security_group.ec2_sg_worker.id]
+  subnet_id = aws_subnet.this.id
+  tags = {
+    Name = "worker2"
+  }
+  
   connection {
     type        = "ssh"
     user        = "ubuntu"
