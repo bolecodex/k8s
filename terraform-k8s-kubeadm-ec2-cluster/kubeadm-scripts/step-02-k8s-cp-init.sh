@@ -4,6 +4,7 @@
 # IMPORTANT - This runs on the Control Plane node
 # Output of each command is given in the curly braces to compare with your output and detect issues in case of mismatch
 #
+sudo hostnamectl set-hostname cp
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16
 
 # Save 'kubeadm join ...' command from the above output to run in next step on the Worker Nodes
