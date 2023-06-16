@@ -20,14 +20,14 @@ resource "aws_vpc" "this" {
   instance_tenancy = "default"
 
   tags = {
-    Name = "kubernetes-cluster-2"
+    Name = "kubernetes-cluster-x"
   }
 }
 
 # Defile any local vars
 locals {
-  pem_file     = "./k8s-kp-2.pem"
-  key_name     = "k8s-kp-2"
+  pem_file     = "./k8s-kp-x.pem"
+  key_name     = "k8s-kp-x"
 }
 
 resource "aws_internet_gateway" "this" {
@@ -186,6 +186,7 @@ resource "aws_instance" "ec2_instance_worker_node1" {
 
   provisioner "remote-exec" {
     scripts = [
+      "./kubeadm-scripts/step-02-k8s-woker1.sh",
       "./kubeadm-scripts/step-01-k8s-packages-ubuntu.sh",
       "./kubeadm-scripts/step-03-k8s-join.sh",
     ]
@@ -214,6 +215,7 @@ resource "aws_instance" "ec2_instance_worker_node2" {
 
   provisioner "remote-exec" {
     scripts = [
+      "./kubeadm-scripts/step-02-k8s-woker2.sh",
       "./kubeadm-scripts/step-01-k8s-packages-ubuntu.sh",
       "./kubeadm-scripts/step-03-k8s-join.sh",
     ]
