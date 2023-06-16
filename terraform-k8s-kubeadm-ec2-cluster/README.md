@@ -23,7 +23,7 @@ vim ~/.bashrc
 source <(kubectl completion bash)
 alias k=kubectl
 export do="--dry-run=client -o yaml"
-PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
+# PS1="\[\033[01;32m\]cp\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)" 2>/dev/null) $ "
 
 # press Esc to exit insert mode, type :wq and the press enter
 source ~/.bashrc
