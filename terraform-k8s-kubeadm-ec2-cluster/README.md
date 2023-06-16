@@ -5,12 +5,12 @@ git clone https://github.com/bolecodex/k8s.git
 cd k8s/terraform-k8s-kubeadm-ec2-cluster
 terraform init
 terraform apply --auto-approve
-# Wait for around 4 minutes
+# Wait for around 5 minutes
 ```
 ## SSH into the control plane and worker node
 ```
 cd k8s/terraform-k8s-kubeadm-ec2-cluster
-ssh -i ./k8s-kp.pem ubuntu@ec2-<ip-address>.compute-1.amazonaws.com
+ssh -i ./k8s-kp-x.pem ubuntu@ec2-<ip-address>.compute-1.amazonaws.com
 ```
 ## Use SSH Tools
 ```
