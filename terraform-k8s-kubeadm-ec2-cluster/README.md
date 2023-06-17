@@ -4,6 +4,9 @@
 git clone https://github.com/bolecodex/k8s.git
 cd k8s/terraform-k8s-kubeadm-ec2-cluster
 terraform init
+```
+Change the main.tf file to specify the cluster and key pair index
+```
 terraform apply --auto-approve
 # Wait for around 5 minutes
 ```
