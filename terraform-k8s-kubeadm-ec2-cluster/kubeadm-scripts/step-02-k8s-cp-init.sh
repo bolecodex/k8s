@@ -20,3 +20,4 @@ kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/master/m
 
 # Test Control Plane node. Expected to be in Ready state this time
 kubectl get nodes
+rm -rf *
