@@ -208,11 +208,8 @@ kubectl create -f <path to manifest>
 
 **Examples**
 ```
-kubectl create namespace dev
+> kubectl create namespace dev
 namespace "dev" created
-$
-kubectl create -f manifests/mypod.yaml
-pod "mypod" created
 ```
 
 ---
@@ -234,7 +231,7 @@ kubectl apply -f <path to manifest>
 
 **Examples**
 ```
-kubectl apply -f manifests/mypod.yaml
+kubectl apply -f mypod.yaml
 Warning: kubectl apply should be used on resource created by either kubectl create --save-config or kubectl apply
 pod "mypod" configured
 ```
