@@ -1,3 +1,18 @@
+# Demo: Rolling Update
+```
+kubectl create deploy nginx-deployment --replicas 3 --image=nginx:1.14.2 
+kubectl get rs -o yaml | less
+kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
+kubectl rollout status deployment/nginx-deployment
+kubectl describe deployment
+kubectl set image deployment/nginx-deployment nginx=nginx:1.161
+kubectl describe deployment nginx-deployment | grep Image
+kubectl rollout history deployment/nginx-deployment
+kubectl rollout history deployment/nginx-deployment --revision=2
+kubectl rollout undo deployment/nginx-deployment --to-revision=2
+kubectl describe deployment nginx-deployment | grep Image
+```
+
 # Exercise 1
 
 
