@@ -9,7 +9,6 @@ sh minikube-docker-setup.sh
 minikube start --vm-driver=docker --cni=calico
 minikube ssh # logs in to the Minikube host
 docker ps # shows all Docker processes on the MK host
-ps aux | grep localkube # shows the localkube process on MK host
 kubectl get all # shows current resources that have been created
 ```
 # Demo: Creating Services
