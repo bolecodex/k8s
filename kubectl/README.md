@@ -84,21 +84,21 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: DATA+OMITTED
-    server: https://127.0.0.1:46347
-  name: kind-kind
+    server: https://10.0.5.8:6443
+  name: kubernetes
 contexts:
 - context:
-    cluster: kind-kind
-    user: kind-kind
-  name: kind-kind
-current-context: kind-kind
+    cluster: kubernetes
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+current-context: kubernetes-admin@kubernetes
 kind: Config
 preferences: {}
 users:
-- name: kind-kind
+- name: kubernetes-admin
   user:
-    client-certificate-data: REDACTED
-    client-key-data: REDACTED
+    client-certificate-data: DATA+OMITTED
+    client-key-data: DATA+OMITTED
 
 ```
 
