@@ -1,5 +1,4 @@
-
-# Using the CLI
+# Exercise
 The Kubernetes client, `kubectl` is the primary method of interacting with a Kubernetes cluster. Getting to know it
 is essential to using Kubernetes itself.
 
