@@ -231,7 +231,7 @@ kubectl apply -f <path to manifest>
 
 **Examples**
 ```
-kubectl apply -f mypod.yaml
+> kubectl apply -f mypod.yaml
 Warning: kubectl apply should be used on resource created by either kubectl create --save-config or kubectl apply
 pod "mypod" configured
 ```
@@ -267,7 +267,7 @@ kubectl delete <type> <name>
 
 **Examples**
 ```
-kubectl delete pod mypod
+> kubectl delete pod mypod
 pod "mypod" deleted
 ```
 
@@ -285,7 +285,7 @@ kubectl describe <type> <name>
 
 **Examples**
 ```
-kubectl describe pod mypod
+> kubectl describe pod mypod
 Name:         mypod
 Namespace:    dev
 Node:         kind-control-plane/192.168.99.100
@@ -422,7 +422,7 @@ kubectl exec  -it <pod name> -c <container name> -- <arg>
 
 **Example**
 ```
-kubectl exec mypod -c nginx -- printenv
+> kubectl exec mypod -c nginx -- printenv
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOSTNAME=mypod
 KUBERNETES_SERVICE_PORT_HTTPS=443
@@ -435,8 +435,8 @@ KUBERNETES_SERVICE_HOST=10.96.0.1
 KUBERNETES_SERVICE_PORT=443
 NGINX_VERSION=1.12.2
 HOME=/root
-$
-kubectl exec -i -t mypod -c nginx -- /bin/sh
+
+> kubectl exec -i -t mypod -c nginx -- /bin/sh
 / #
 / # cat /etc/alpine-release
 3.5.2
@@ -502,7 +502,7 @@ kubectl proxy --port=<port>
 
 **Examples**
 ```
-kubectl proxy
+> kubectl proxy
 Starting to serve on 127.0.0.1:8001
 
 <from another terminal>
