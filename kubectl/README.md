@@ -119,7 +119,7 @@ Kubernetes documentation.
 ---
 
 ### Exercise: Using Contexts
-**Objective:** Create a new context called `kind-dev` and switch to it.
+**Objective:** Create a new context called `dev` and switch to it.
 
 ---
 
@@ -128,10 +128,10 @@ Kubernetes documentation.
 $ kubectl config get-contexts
 ```
 
-2. Create a new context called `kind-dev` within the `kind-kind` cluster with the `dev` namespace, as the
-`kind-kind` user.
+2. Create a new context called `dev` within the `kubernetes` cluster with the `dev` namespace, as the
+`dev` user.
 ```
-$ kubectl config set-context kind-dev --cluster=kind-kind --user=kind-kind --namespace=dev
+$ kubectl config set-context dev --cluster=kubernetes --user=dev --namespace=dev
 ```
 
 3. View the newly added context.
@@ -141,7 +141,7 @@ kubectl config get-contexts
 
 4. Switch to the `kind-dev` context using `use-context`.
 ```
-$ kubectl config use-context kind-dev
+$ kubectl config use-context dev
 ```
 
 5. View the current active context.
