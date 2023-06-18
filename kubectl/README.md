@@ -147,6 +147,10 @@ kubectl config use-context dev
 ```
 kubectl config current-context
 ```
+6. return back to original context
+```
+kubectl config use-context kubernetes-admin@kubernetes
+```
 
 ---
 
@@ -355,8 +359,14 @@ kubectl logs <pod name> -c <container name>
 **Examples**
 ```
 kubectl logs mypod
-172.17.0.1 - - [10/Mar/2018:18:14:15 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.57.0" "-"
-172.17.0.1 - - [10/Mar/2018:18:14:17 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.57.0" "-"
+2023/06/18 21:37:49 [notice] 1#1: using the "epoll" event method
+2023/06/18 21:37:49 [notice] 1#1: nginx/1.24.0
+2023/06/18 21:37:49 [notice] 1#1: built by gcc 12.2.1 20220924 (Alpine 12.2.1_git20220924-r4) 
+2023/06/18 21:37:49 [notice] 1#1: OS: Linux 5.15.0-1036-aws
+2023/06/18 21:37:49 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2023/06/18 21:37:49 [notice] 1#1: start worker processes
+2023/06/18 21:37:49 [notice] 1#1: start worker process 31
+2023/06/18 21:37:49 [notice] 1#1: start worker process 32
 ```
 
 ---
@@ -374,9 +384,9 @@ what was created.
 kubectl create namespace dev
 ```
 
-2) Apply the manifest `manifests/mypod.yaml`.
+2) Apply the manifest `mypod.yaml`.
 ```
-kubectl apply -f manifests/mypod.yaml
+kubectl apply -f mypod.yaml
 ```
 
 3) Get the yaml output of the created pod `mypod`.
@@ -432,24 +442,42 @@ kubectl exec  -it <pod name> -c <container name> -- <arg>
 
 **Example**
 ```
+> kubectl apply -f mypod.yaml
 > kubectl exec mypod -c nginx -- printenv
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOSTNAME=mypod
-KUBERNETES_SERVICE_PORT_HTTPS=443
-KUBERNETES_PORT=tcp://10.96.0.1:443
+NEWDEP_PORT=tcp://10.111.246.183:8080
+NGINXSVC_SERVICE_PORT=80
+NGINXSVC_PORT_80_TCP=tcp://10.105.15.62:80
+NGINXSVC_PORT_80_TCP_PORT=80
+NEWDEP_SERVICE_HOST=10.111.246.183
+NEWDEP_PORT_8080_TCP_PORT=8080
 KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
 KUBERNETES_PORT_443_TCP_PROTO=tcp
-KUBERNETES_PORT_443_TCP_PORT=443
 KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
+NGINXSVC_PORT_80_TCP_ADDR=10.105.15.62
+NEWDEP_PORT_8080_TCP=tcp://10.111.246.183:8080
+NEWDEP_PORT_8080_TCP_ADDR=10.111.246.183
 KUBERNETES_SERVICE_HOST=10.96.0.1
+KUBERNETES_SERVICE_PORT_HTTPS=443
+NGINXSVC_SERVICE_HOST=10.105.15.62
+NGINXSVC_PORT=tcp://10.105.15.62:80
+NGINXSVC_PORT_80_TCP_PROTO=tcp
+NEWDEP_SERVICE_PORT=8080
+NEWDEP_PORT_8080_TCP_PROTO=tcp
 KUBERNETES_SERVICE_PORT=443
-NGINX_VERSION=1.12.2
+KUBERNETES_PORT=tcp://10.96.0.1:443
+KUBERNETES_PORT_443_TCP_PORT=443
+NGINX_VERSION=1.24.0
+PKG_RELEASE=1
+NJS_VERSION=0.7.12
 HOME=/root
 
 > kubectl exec -i -t mypod -c nginx -- /bin/sh
 / #
 / # cat /etc/alpine-release
-3.5.2
+3.17.4
+/ # exit
 ```
 
 ---
@@ -459,14 +487,14 @@ HOME=/root
 
 ---
 
-1) If not already created, create the Pod `mypod` from the manifest `manifests/mypod.yaml`.
+1) If not already created, create the Pod `mypod` from the manifest `mypod.yaml`.
 ```
-kubectl create -f manifests/mypod.yaml
+kubectl apply -f mypod.yaml
 ```
 
 2) Wait for the Pod to become ready (`running`).
 ```
-kubectl get pods --watch
+kubectl get pods
 ```
 
 3) Use `kubectl exec` to `cat` the file `/etc/os-release`.
@@ -488,6 +516,9 @@ If executed correctly, it should drop you into a new shell session within the ng
 There should be two nginx processes along with a `/bin/sh` process representing your interactive shell.
 
 6) Exit out of the container simply by typing `exit`.
+```
+/ # exit
+```
 With that the shell process will be terminated and the only running processes within the container should
 once again be nginx and its worker process.
 
@@ -555,9 +586,9 @@ http://127.0.0.1:8001/api/v1/namespaces/default/pods/mypod/proxy/
 
 ---
 
-1) Create the Pod `mypod` from the manifest `manifests/mypod.yaml`. (if not created previously)
+1) Create the Pod `mypod` from the manifest `mypod.yaml`. (if not created previously)
 ```
-kubectl create -f manifests/mypod.yaml
+kubectl apply -f mypod.yaml
 ```
 
 2) Start the `kubectl proxy` with the defaults.
@@ -567,7 +598,7 @@ kubectl proxy
 
 3) Access the Pod through the proxy.
 ```
-http://127.0.0.1:8001/api/v1/namespaces/dev/pods/mypod/proxy/
+curl http://127.0.0.1:8001/api/v1/namespaces/default/pods/mypod/proxy/
 ```
 You should see the "Welcome to nginx!" page.
 
@@ -593,7 +624,6 @@ The namespace and context will be reused.
 To remove everything that was created in this tutorial, execute the following commands:
 ```
 kubectl delete namespace dev
-kubectl config use-context kubernetes-admin@kubernetes
 kubectl config delete-context dev
 ```
 
