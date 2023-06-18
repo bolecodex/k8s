@@ -252,7 +252,6 @@ kubectl edit <type> <object name>
 **Examples**
 ```
 kubectl edit pod mypod
-kubectl edit service myservice
 ```
 
 ---
@@ -285,6 +284,7 @@ kubectl describe <type> <name>
 
 **Examples**
 ```
+> kubectl apply -f mypod.yaml
 > kubectl describe pod mypod
 Name:         mypod
 Namespace:    dev
