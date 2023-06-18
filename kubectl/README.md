@@ -286,48 +286,58 @@ kubectl describe <type> <name>
 ```
 > kubectl apply -f mypod.yaml
 > kubectl describe pod mypod
-Name:         mypod
-Namespace:    dev
-Node:         kind-control-plane/192.168.99.100
-Start Time:   Sat, 10 Mar 2018 13:12:53 -0500
-Labels:       <none>
-Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"mypod","namespace":"dev"},"spec":{"containers":[{"image":...
-Status:       Running
-IP:           172.17.0.6
+Name:             mypod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Sun, 18 Jun 2023 21:37:48 +0000
+Labels:           <none>
+Annotations:      cni.projectcalico.org/containerID: 7d5c1d8564803acded6aa34d2556c1d430b5808e137e2610555753e735400c54
+                  cni.projectcalico.org/podIP: 10.244.120.75/32
+                  cni.projectcalico.org/podIPs: 10.244.120.75/32
+Status:           Running
+IP:               10.244.120.75
+IPs:
+  IP:  10.244.120.75
 Containers:
   nginx:
-    Container ID:   docker://5a0c100de6599300b1565e73e64e8917f9a4f4b06325dc4890aad980d582cf04
+    Container ID:   docker://d07cf09e51d540cbe2f8121bf72ada9b424e83a38b60d9b5639ed6c450e5d242
     Image:          nginx:stable-alpine
-    Image ID:       docker-pullable://nginx@sha256:db5acc22920799fe387a903437eb89387607e5b3f63cf0f4472ac182d7bad644
+    Image ID:       docker-pullable://nginx@sha256:5e1ccef1e821253829e415ac1e3eafe46920aab0bf67e0fe8a104c57dbfffdf7
     Port:           80/TCP
+    Host Port:      0/TCP
     State:          Running
-      Started:      Sat, 10 Mar 2018 13:12:53 -0500
+      Started:      Sun, 18 Jun 2023 21:37:49 +0000
     Ready:          True
     Restart Count:  0
     Environment:    <none>
     Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from default-token-s2xd7 (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-h4m96 (ro)
 Conditions:
-  Type           Status
-  Initialized    True
-  Ready          True
-  PodScheduled   True
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
 Volumes:
-  default-token-s2xd7:
-    Type:        Secret (a volume populated by a Secret)
-    SecretName:  default-token-s2xd7
-    Optional:    false
-QoS Class:       BestEffort
-Node-Selectors:  <none>
-Tolerations:     <none>
+  kube-api-access-h4m96:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
 Events:
-  Type    Reason                 Age   From               Message
-  ----    ------                 ----  ----               -------
-  Normal  Scheduled              5s    default-scheduler  Successfully assigned mypod to kind-control-plane
-  Normal  SuccessfulMountVolume  5s    kubelet, kind-control-plane  MountVolume.SetUp succeeded for volume "default-token-s2xd7"
-  Normal  Pulled                 5s    kubelet, kind-control-plane  Container image "nginx:stable-alpine" already present on machine
-  Normal  Created                5s    kubelet, kind-control-plane  Created container
-  Normal  Started                5s    kubelet, kind-control-plane  Started container
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  17s   default-scheduler  Successfully assigned default/mypod to minikube
+  Normal  Pulled     16s   kubelet            Container image "nginx:stable-alpine" already present on machine
+  Normal  Created    16s   kubelet            Created container nginx
+  Normal  Started    16s   kubelet            Started container nginx
   ```
 
 ---
