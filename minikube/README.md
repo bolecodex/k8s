@@ -54,6 +54,7 @@ kubectl get svc nginxsvc
 curl http://$(minikube ip):32000
 kubectl create ingress nginxsvc-ingress --rule="/=nginxsvc:80" --rule="/hello=newdep:8080"
 minikube ip
+# The hosts file  is a text file used by operating systems to map IP addresses to host names/domain names. 
 sudo vim /etc/hosts
 # $(minikube ip) nginxsvc.info
 # notice that you need to replace $(minikube ip) with the returned IP address
