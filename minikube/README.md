@@ -1,5 +1,6 @@
 # Install Minikube
 ```
+# At least 2VCPU, 20GB Volume
 git clone https://github.com/bolecodex/k8s.git
 cd k8s/minikube
 sh minikube-docker-setup.sh
