@@ -190,7 +190,7 @@ kube-public   Active    4h
 kube-system   Active    4h
 > kubectl get pod mypod -o wide
 NAME      READY     STATUS    RESTARTS   AGE       IP           NODE
-mypod     1/1       Running   0          5m        172.17.0.6   kind-control-plane
+mypod     1/1       Running   0          5m        172.17.0.6   cp
 ```
 
 ---
