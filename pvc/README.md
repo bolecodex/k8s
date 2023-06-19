@@ -8,6 +8,7 @@ Run a Pod with the name pv-pod that uses this persistent volume from the "myvol"
 Use kubectl edit or kubectl patch with recording to change the size of the Persistent Volume Claim from 100MiB to 200MiB
 
 Tips:
+
 Configure a Pod to Use a PersistentVolume for Storage | Kubernetes
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
 
