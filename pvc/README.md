@@ -1,4 +1,4 @@
-# Task 1 
+# Task
 Create a Persistent Volume with the name mypv, that uses local host storage and provides 1 GiB of storage. This PV should be accessible from all namespaces.
 
 Create a Persistent Volume Claim that requests 100 MiB. 
