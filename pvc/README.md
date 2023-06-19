@@ -10,6 +10,7 @@ Use kubectl edit or kubectl patch with recording to change the size of the Persi
 Tips:
 Configure a Pod to Use a PersistentVolume for Storage | Kubernetes
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+
 Kubernetes 1.14: Local Persistent Volumes GA | Kubernetes
 https://kubernetes.io/blog/2019/04/04/kubernetes-1.14-local-persistent-volumes-ga/#how-to-use-a-local-persistent-volume
 
