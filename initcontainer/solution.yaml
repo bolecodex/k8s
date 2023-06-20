@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: task4pod
+  name: initdemo
   labels:
-    run: task4pod
+    run: initdemo
 spec:
   initContainers:
   - name: init
