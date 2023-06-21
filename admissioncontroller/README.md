@@ -1,4 +1,4 @@
-# Exercise 15.3
+# Exercise
 
 
 1. Check the Admission Controller settings
