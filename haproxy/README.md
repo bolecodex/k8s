@@ -1,4 +1,4 @@
-# Exercise 16.2 - Detailed Steps
+# Exercise
 
 1.HAProxy node connection
 
