@@ -23,7 +23,7 @@ kubectl delete --all deploy
 cd /etc/kubernetes/manifests/
 sudo mv * .. # this will stop all running pods
 sudo crictl ps
-sudo ETCDCTL_API=3 etcdctl snapshot restore /tmp/etcdbackup.db --data-dir /var/lib/etcd-backup
+sudo ETCDCTL_API=3 etcdctl snapshot restore /tmp/etcdbackup.db --data-dir /var/lib/etcd-backup --skip-hash-check=true
 sudo ls -l /var/lib/etcd-backup/
 sudo vi /etc/kubernetes/etcd.yaml # change etcd-data HostPath volume to /var/lib/etcd-backup
 sudo mv ../*.yaml .
