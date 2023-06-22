@@ -20,6 +20,7 @@ cp /tmp/etcdbackup.db /tmp/etcdbackup.db.2
 # Demo 2: Restoring the Etcd
 ```
 kubectl delete --all deploy
+sudo crictl ps # Check the etcd process
 cd /etc/kubernetes/manifests/
 sudo mv * .. # this will stop all running pods
 sudo crictl ps
