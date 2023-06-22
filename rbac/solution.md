@@ -20,6 +20,7 @@ metadata:
   name: viewpod
   namespace: roles
 spec:
+  serviceAccountName: mysa
   containers:
   - image: nginx
     name: viewpod
@@ -28,5 +29,5 @@ spec:
   restartPolicy: Always
 status: {}
 
-serviceAccountName: build-robot
+
 ```
