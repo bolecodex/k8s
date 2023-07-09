@@ -1,0 +1,133 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: k8sgpt
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: fake-hpa
+  namespace: k8sgpt
+spec:
+  maxReplicas: 5
+  metrics:
+  - resource:
+      name: memory
+      target:
+        averageUtilization: 60
+        type: Utilization
+    type: Resource
+  - resource:
+      name: cpu
+      target:
+        averageUtilization: 60
+        type: Utilization
+    type: Resource
+  minReplicas: 2
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: fake-deployment
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fake-ingress
+  namespace: k8sgpt
+spec:
+  rules:
+  - host: fake-ingress.example.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: fake-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - fake-ingress.example.com
+    secretName: fake-secret
+
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: other-namespace
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crashloop-deployment
+  namespace: other-namespace
+  labels:
+    app: crashloop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crashloop
+  template:
+    metadata:
+      labels:
+        app: crashloop
+    spec:
+      containers:
+      - name: crashloop-container
+        image: busybox
+        command: [/bin/sh, -c]
+        args:
+        - while true; do
+            echo "Hello, Kubernetes!";
+            exit 1;
+          done
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fake-service
+  namespace: other-namespace
+  labels:
+    app: fake-service
+spec:
+  type: ClusterIP
+  ports:
+  - name: port-1
+    port: 80
+    targetPort: 8080
+  selector:
+    app: fake-service
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webgoat-deployment
+  namespace: other-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webgoat
+  template:
+    metadata:
+      labels:
+        app: webgoat
+    spec:
+      containers:
+        - name: webgoat-container
+          image: webgoat/webgoat-8.0
+          ports:
+            - containerPort: 8080
